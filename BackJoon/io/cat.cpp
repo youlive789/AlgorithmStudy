@@ -4,7 +4,7 @@
 int main() {
 
     std::string cat = "\\    /\\\n";
-    cat.append(")  ( ')\n");
+    cat.append(" )  ( ')\n");
     cat.append("(  /  )\n");
     cat.append(" \\(__)|");
 
