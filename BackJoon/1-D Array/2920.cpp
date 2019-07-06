@@ -11,7 +11,7 @@ int main() {
 
     int ascCounter = 0;
     int descCounter = 0;
-    int melodyCount = 8;
+    const int melodyCount = 8;
     int melodyList[melodyCount];
 
     for (int index = 0; index < melodyCount; ++index) {
@@ -19,11 +19,6 @@ int main() {
     }
 
     for (int index = 1; index < melodyCount; ++index) {
-        // 바로 종료조건 - mixed
-        if ( (ascCounter > 0 && descCounter > 0) || (ascCounter == 0 && descCounter == 0) ) {
-            cout << MIX << endl;
-            return 0;
-        } 
 
         if (melodyList[index - 1] - melodyList[index] == -1) {
             ascCounter++;              
@@ -38,6 +33,9 @@ int main() {
     } 
     else if (descCounter == 7) {
         cout << DESC << endl;
+    }
+    else {
+        cout << MIX << endl;
     }
 
     return 0;
