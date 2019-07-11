@@ -11,7 +11,7 @@ int main() {
     string testCase;
     int sizeTestCase = 0;
 
-    int sumPoint[numberCase];
+    int sumPoint[numberCase] = {0};
     int currentPoint = 0;
 
     for (int index = 0; index < numberCase; ++index) {
@@ -26,9 +26,9 @@ int main() {
             else {
                 currentPoint = 0;
             }
-            sumPoint[index] += currentPoint;
-            currentPoint = 0;
-        }              
+            sumPoint[index] += currentPoint;        
+        }    
+        currentPoint = 0;          
     }
 
     for (int index = 0; index < numberCase; ++index) {
