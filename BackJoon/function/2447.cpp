@@ -18,7 +18,7 @@ void makeShape(const int& height, const int& x, const int& y) {
         shape[y+2][x+2] = true;
         return;
     }
-    makeShape(height / 2, x + 3, y);
+    makeShape(height / 3, x + 3, y);
 }
 
 int main() {
@@ -31,9 +31,12 @@ int main() {
 
     for (int yIndex = 0; yIndex < height; ++yIndex) {
         for (int xIndex = 0; xIndex < height; ++xIndex) {
+            // 별 프린트
             if (shape[yIndex][xIndex]) {
                 cout << "*";
-            } else {
+            } 
+            // 공백 프린트
+            else {
                 cout << " ";
             }
         }
