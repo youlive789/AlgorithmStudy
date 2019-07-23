@@ -7,18 +7,20 @@ bool shape[2187][2187] = {false};
 
 // 모양 형성
 void makeShape(const int& height, const int& x, const int& y) {
-    if (height == 3) {
-        shape[y][x] = true;
-        shape[y][x+1] = true;
-        shape[y][x+2] = true;
-        shape[y+1][x] = true;
-        shape[y+1][x+2] = true;
-        shape[y+2][x] = true;
-        shape[y+2][x+1] = true;
-        shape[y+2][x+2] = true;
-        return;
-    }
+
+    if (height == 0) return;
+
+    shape[y][x] = true;
+    shape[y][x+1] = true;
+    shape[y][x+2] = true;
+    shape[y+1][x] = true;
+    shape[y+1][x+2] = true;
+    shape[y+2][x] = true;
+    shape[y+2][x+1] = true;
+    shape[y+2][x+2] = true;
+
     makeShape(height / 3, x + 3, y);
+    
 }
 
 int main() {
@@ -27,7 +29,9 @@ int main() {
     int height = 0;
     cin >> height;
 
-    makeShape(height, 0, 0);
+    for (int index = 0; index < height / 3; ++index) {
+        makeShape(height, 0, index * 3);
+    }
 
     for (int yIndex = 0; yIndex < height; ++yIndex) {
         for (int xIndex = 0; xIndex < height; ++xIndex) {
@@ -37,7 +41,7 @@ int main() {
             } 
             // 공백 프린트
             else {
-                cout << " ";
+                cout << "■";
             }
         }
         cout << endl;
