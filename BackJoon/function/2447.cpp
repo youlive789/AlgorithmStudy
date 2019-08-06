@@ -16,7 +16,7 @@ bool checkHeight(const int& height, const int& compare) {
 }
 
 // 모양을 형성한다.
-void makeShape(const int& height, int x, int y) {
+void makeShape(const int& height, int x, int y, int centerPosition) {
 
     // x와 y 좌표가 모양틀을 벗어난다면 종료한다.
     if (!checkHeight(height, x) && !checkHeight(height, y)) return;
@@ -24,16 +24,18 @@ void makeShape(const int& height, int x, int y) {
     // 한 줄을 다 찍었으면 다음줄을 찍기 시작한다.
     if (!checkHeight(height, x)) { x = 0; y += 3;}
 
-    shape[y][x] = true;
-    shape[y][x+1] = true;
-    shape[y][x+2] = true;
-    shape[y+1][x] = true;
-    shape[y+1][x+2] = true;
-    shape[y+2][x] = true;
-    shape[y+2][x+1] = true;
-    shape[y+2][x+2] = true;
+    if (x != centerPosition || y != centerPosition) {
+        shape[y][x] = true;
+        shape[y][x+1] = true;
+        shape[y][x+2] = true;
+        shape[y+1][x] = true;
+        shape[y+1][x+2] = true;
+        shape[y+2][x] = true;
+        shape[y+2][x+1] = true;
+        shape[y+2][x+2] = true;
+    }
 
-    makeShape(height, x + 3, y);
+    makeShape(height, x + 3, y, centerPosition);
 }
 
 int main() {
@@ -43,7 +45,7 @@ int main() {
     cin >> height;
 
     // 반복문 없이 모양틀 생성
-    makeShape(height, 0, 0);
+    makeShape(height, 0, 0, height / 2);
     
     for (int yIndex = 0; yIndex < height; ++yIndex) {
         for (int xIndex = 0; xIndex < height; ++xIndex) {
