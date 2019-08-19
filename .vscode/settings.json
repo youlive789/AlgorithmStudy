@@ -1,5 +1,6 @@
 {
     "files.associations": {
+        "*.tpl": "html",
         "cmath": "cpp",
         "cstddef": "cpp",
         "cstdint": "cpp",
@@ -36,6 +37,8 @@
         "xstring": "cpp",
         "xtr1common": "cpp",
         "xutility": "cpp",
-        "vector": "cpp"
+        "vector": "cpp",
+        "array": "cpp",
+        "string_view": "cpp"
     }
 }
