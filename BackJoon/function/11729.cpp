@@ -19,6 +19,10 @@ void moveDisk(stack<int> &first, stack<int> &second, stack<int> &third) {
      moveDisk(first, second, third);
 }
 
+void printDisk() {
+    
+}
+
 int main() {
 
     stack<int> first;
