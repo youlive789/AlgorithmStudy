@@ -1,70 +1,57 @@
 #include <iostream>
 #include <stack>
-#include <algorithm>
-#include <vector>
 
 using namespace std;
 
-void popDisk(stack<int> &origin, stack<int> &target) {
-    if (origin.top() < target.top() || target.empty()) {
-        int disk = origin.top();
-        origin.pop();
-        target.push(disk);
-    } 
-    return;
+// 옮길 수 있는지 확인한다.
+bool checkDisk(stack<int> &comp1, stack<int> &comp2) {
+    if (comp2.empty() || comp1.top() < comp2.top()) {
+        return true;
+    } else {
+        return false;
+    }
 }
 
-void moveDisk(stack<int> &first, stack<int> &second, stack<int> &third) {
-    // first와 second에 디스크가 없으면 종료
-    if (first.empty() && second.empty()) return;
-
-    popDisk(first, second);
-
-    //moveDisk(first, second, third);
+// 디스크를 옮긴다.
+void moveDisk(stack<int> &comp1, stack<int> &comp2) {
+     comp2.push(comp1.top());
+     comp1.pop();
 }
 
-void printDisk(const stack<int> & disks) {
-    stack<int> tmp = disks;
+void hanoy(stack<int> &first, stack<int> &second, stack<int> &third, const int& numDisk) {
+    // 기저사례:
+    // third의 사이즈가 numDisk와 같다면 종료한다.
+    if (third.size() == numDisk) return;
 
-    if (tmp.size() <= 0) {
-        cout << "Nothing in here." << endl;
-    }
+    // 처음 옮길 때 3번으로 시도한다.
+    // 3번이 차있다면 2번으로 시도한다.
+    // 모두 차있다면 3번에서 2번으로, 2번에서 1번으로 시도한다.
 
-    while(!tmp.empty()) {
-        cout << tmp.top() << endl;
-        tmp.pop();
-    }
-
-    return;
+    hanoy(first, second, third, numDisk);
 }
 
 int main() {
+
+    int numDisk;
+    cin >> numDisk;
 
     stack<int> first;
     stack<int> second;
     stack<int> third;
 
-    int numDisk;
-    cin >> numDisk;
-
-    // 하노이탑 초기화
-    for (int disk = numDisk; disk >= 1; --disk) {
-        first.push(disk);
+    // 하노이 탑 초기화
+    for (int i = numDisk; i > 0; --i) {
+        first.push(i);
     }
 
-    moveDisk(first, second, third);
+    cout << "before hanoy" << endl;
+    hanoy(first, second, third, numDisk);
+    cout << "end hanoy" << endl;
 
-    cout << "Fisrt disk" << endl;
-    printDisk(first);
-    cout << endl;
-
-    cout << "Second disk" << endl;
-    printDisk(second);
-    cout << endl;
-
-    cout << "Third disk" << endl;
-    printDisk(third);
-    cout << endl;
+    for (int i = 0; i < third.size(); ++i) {
+        cout << third.top() << endl;
+        third.pop();
+    }
 
     return 0;
 }
