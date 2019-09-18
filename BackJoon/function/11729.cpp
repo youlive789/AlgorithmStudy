@@ -13,7 +13,10 @@ bool checkDisk(stack<int> &comp1, stack<int> &comp2) {
     if (bothEmpty) {
         return false;
     }
-    // 옮기려는 원반에 아무것도 들어있지 않다면
+    else if (comp1.empty()) {
+        return false;
+    }
+    // 옮길 수 있는 상태라면
     else if (comp2.empty() || comp1.top() < comp2.top()) {
         return true;
     }
@@ -38,7 +41,6 @@ void hanoy(map<int, stack<int>> &diskMap, const int& numDisk) {
     for (int i = 1; i <= 3; ++i) {
         for (int j = 1; j <=3; ++j) {
             if (i==j) continue;
-            cout << "before move : " << i << " " << j << endl;
             if (checkDisk(diskMap[i], diskMap[j])) {
                 moveDisk(diskMap[i], diskMap[j]);
                 cout << "moved : " << i << " " << j << endl;
@@ -65,12 +67,10 @@ int main() {
 
     // 하노이 탑 초기화
     for (int i = numDisk; i > 0; --i) {
-        first.push(i);
+        diskMap[1].push(i);
     }
 
-    cout << "before hanoy" << endl;
     hanoy(diskMap, numDisk);
-    cout << "end hanoy" << endl;
 
     for (int i = 0; i < third.size(); ++i) {
         cout << third.top() << endl;
