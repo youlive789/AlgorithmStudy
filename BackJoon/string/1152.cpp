@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <string.h>
 #include <sstream>
 #include <vector>
 
@@ -19,13 +20,19 @@ vector<string> split(const string& str, const char& delimiter) {
 
 int main() {
 
-    string inputStr;
-    cin.ignore();
-    getline(cin, inputStr);
+    char* inputStr;
+    scanf("%[^\n]\n", inputStr); 
 
-    vector<string> results = split(inputStr, ' ');
+    int cnt = 0;
+    char* token;
 
-    cout << results.size() << endl;
+    while (token != NULL) {
+        
+        token = strtok(inputStr, " ");
+        cnt++;
+    }
+
+    cout << cnt << endl;
 
     return 0;
 }
