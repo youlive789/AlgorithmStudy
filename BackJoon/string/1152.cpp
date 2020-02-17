@@ -1,38 +1,34 @@
 #include <iostream>
 #include <string>
-#include <string.h>
 #include <sstream>
 #include <vector>
 
+#define TRIM_SPACE " \t\n\v"
+
 using namespace std;
 
-vector<string> split(const string& str, const char& delimiter) {
-    vector<string> internal;
-    stringstream ss(str);
-    string temp;
- 
-    while (getline(ss, temp, delimiter)) {
-        internal.push_back(temp);
-    }
- 
-    return internal;
+inline string trim(string& s,const string& drop = TRIM_SPACE) {
+    string r=s.erase(s.find_last_not_of(drop)+1);
+    return r.erase(0,r.find_first_not_of(drop));
 }
 
 int main() {
 
-    char* inputStr;
-    scanf("%[^\n]\n", inputStr); 
+    int answer = 0;
 
-    int cnt = 0;
-    char* token;
+    string inputStr;
+    getline(cin, inputStr);
 
-    while (token != NULL) {
-        
-        token = strtok(inputStr, " ");
-        cnt++;
+    inputStr = trim(inputStr);
+    
+    istringstream iss(inputStr);
+
+    string target;
+    while ( getline( iss, target, ' ' ) ) {
+        ++answer;   
     }
 
-    cout << cnt << endl;
+    cout << answer << endl;
 
     return 0;
 }
