@@ -18,18 +18,8 @@ int main() {
         return 0;
     } 
 
-    int num = 1;
-    while (true) {
-        long totalCost = fixedCost + (productCost * num);
-        long income = price * num;
-
-        if (income > totalCost) {
-            break;
-        }
-        num++;
-    }
-
-    cout << num << endl;
+    long answer = (fixedCost / (price - productCost)) + 1;
+    cout << answer << endl;
 
     return 0;
 }
