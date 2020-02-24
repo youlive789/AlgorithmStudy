@@ -12,9 +12,8 @@ int main() {
     int numberIndex = layerCnt - inputNumber;
 
     int x, y = -999;
-    bool layerEven = ((layer % 2) == 0);
 
-    if (layerEven) {
+    if (layer % 2 != 0) {
         x = 1;
         y = layer;
         while (numberIndex != 0) {
@@ -32,7 +31,7 @@ int main() {
             numberIndex--;
         }
     }
-    
+
     cout << x << "/" << y << endl;
 
     return 0;
