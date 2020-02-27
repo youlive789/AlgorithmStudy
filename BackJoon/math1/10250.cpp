@@ -1,4 +1,5 @@
 #include <iostream>
+#include <iomanip>
 
 using namespace std;
 
@@ -7,22 +8,23 @@ int main() {
     // H: 층수, W: 방수, N: N번째 손님
     // 6 12 10 - 402
     // 30 50 72 - 1203
-    int cases, cntFloor, cntRoom, customer;
-    cin >> cases >> cntFloor >> cntRoom >> customer;
+    int cases;
+    cin >> cases;
 
-    int index = 0;
-    int roomNumber = 0, floorNumber = 0;
-    for (int room = 1; room <= cntRoom; room++) {
-        for (int floor = 1; floor <= cntFloor; floor++) {
-            index++;
-            if (customer == index) {
-                roomNumber = room;
-                floorNumber = floor;
-            }
+    while (cases--) {
+        int cntFloor, cntRoom, customer;
+        cin >> cntFloor >> cntRoom >> customer;
+
+        int floor = customer % cntFloor;
+        int floorTrigger = 1;
+        if (floor == 0) {
+            floor = cntFloor;
+            floorTrigger = 0;
         }
-    }
-    
-    cout << floorNumber << roomNumber << endl;
 
+        int room = customer / cntFloor + floorTrigger;
+
+        cout << floor << setfill('0') << setw(2) << room << endl;
+    }
     return 0;
 }

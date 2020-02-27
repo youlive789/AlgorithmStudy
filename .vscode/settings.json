@@ -1,6 +1,7 @@
 {
     "files.associations": {
         "*.tpl": "html",
+        "*.container": "html",
         "cmath": "cpp",
         "cstddef": "cpp",
         "cstdint": "cpp",
@@ -39,6 +40,7 @@
         "xutility": "cpp",
         "vector": "cpp",
         "array": "cpp",
-        "string_view": "cpp"
+        "string_view": "cpp",
+        "iomanip": "cpp"
     }
 }
