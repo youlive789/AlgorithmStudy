@@ -11,27 +11,21 @@ struct Step {
 };
 
 Step moveStep(Step K) {
-    // 종료조건: lengthLeft == 0
     if (K.lengthLeft <= 0) return K;
 
-    // 처음과 마지막에는 1밖에 못움직인다.
     if (K.steps == 0 || K.lengthLeft == 1) {
         K.lastMove = 1;
     }
-    else if (K.lastMove < sqrt(K.lengthLeft)){
+    else if (K.lastMove < K.lengthLeft && K.lengthLeft > 2) {
         K.lastMove += 1;
     }
     else if (K.lengthPass > K.lengthLeft && K.lengthLeft > 1) {
         K.lastMove -= 1;
     }
-    else {
-        K.steps += 1;
-    }
+
     K.steps += 1;
     K.lengthLeft -= K.lastMove;
     K.lengthPass += K.lastMove;
-
-    cout << K.steps << K.lengthPass << K.lastMove << endl;
 
     moveStep(K);
 }
