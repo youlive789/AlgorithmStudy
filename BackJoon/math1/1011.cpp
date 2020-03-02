@@ -1,33 +1,67 @@
 #include <iostream>
+#include <cmath>
 
 using namespace std;
 
+struct Step {
+    int steps;
+    int lengthPass;
+    int lengthLeft;
+    int lastMove;
+};
+
+Step moveStep(Step K) {
+    // 종료조건: lengthLeft == 0
+    if (K.lengthLeft <= 0) return K;
+
+    // 처음과 마지막에는 1밖에 못움직인다.
+    if (K.steps == 0 || K.lengthLeft == 1) {
+        K.steps += 1;
+        K.lastMove = 1;
+        K.lengthLeft -= 1;
+        K.lengthPass += 1;
+    }
+    else if (K.lastMove < sqrt(K.lengthLeft)){
+        K.steps += 1;
+        K.lastMove += 1;
+        K.lengthLeft -= K.lastMove;
+        K.lengthPass += K.lastMove;
+    }
+    else if (K.lengthPass > K.lengthLeft && K.lengthLeft > 1) {
+        K.steps += 1;
+        K.lastMove -= 1;
+        K.lengthLeft -= K.lastMove;
+        K.lengthPass += K.lastMove;
+    }
+    else {
+        K.steps += 1;
+        K.lengthLeft -= K.lastMove;
+        K.lengthPass += K.lastMove;
+    }
+
+    cout << K.steps << K.lengthPass << K.lastMove << endl;
+
+    moveStep(K);
+}
+
 int main() {
 
-    // 제약조건 : 첫번째 스텝과 마지막 스텝 길이는 무조건 1이 되어야한다.
-    // 이 경우 두번째 스텝의 범위 => 1, 2
-    // 마지막 스텝 전의 범위 => 1, 2
-    // k1 = {1}, k2 = {1, 2} ... , kn-1 = {1, 2}, kn = {1}
-    
-    // f(k, l) => f(1, 3) = 1
-    //         => f(2, 3) = 1
-    //         => f(3, 3) = 1
+    int cases;
+    cin >> cases;
 
-    // f(k, l) => f(1, 4) = 1
-    //         => f(2, 4) = 2
-    //         => f(3, 4) = 1
+    while (cases--) {
+        int x, y;
+        cin >> x >> y;
 
-    // f(k, l) => f(1, 5) = 1
-    //         => f(2, 5) = 1
-    //         => f(3, 5) = 2
-    //         => f(4, 5) = 1
-
-    // f(k, l) => f(1, 10) = 1
-    //         => f(2, 10) = 2
-    //         => f(3, 10) = 3
-    //         => f(4, 10) = 2
-    //         => f(5, 10) = 1
-    //         => f(6, 10) = 1
+        Step K;
+        K.steps = 0;
+        K.lengthPass = 0;
+        K.lengthLeft = y - x;
+        K.lastMove = 0;
+        
+        K = moveStep(K);
+        cout << K.steps << endl;
+    }
 
     return 0;
 }
