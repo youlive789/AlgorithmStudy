@@ -16,28 +16,20 @@ Step moveStep(Step K) {
 
     // 처음과 마지막에는 1밖에 못움직인다.
     if (K.steps == 0 || K.lengthLeft == 1) {
-        K.steps += 1;
         K.lastMove = 1;
-        K.lengthLeft -= 1;
-        K.lengthPass += 1;
     }
     else if (K.lastMove < sqrt(K.lengthLeft)){
-        K.steps += 1;
         K.lastMove += 1;
-        K.lengthLeft -= K.lastMove;
-        K.lengthPass += K.lastMove;
     }
     else if (K.lengthPass > K.lengthLeft && K.lengthLeft > 1) {
-        K.steps += 1;
         K.lastMove -= 1;
-        K.lengthLeft -= K.lastMove;
-        K.lengthPass += K.lastMove;
     }
     else {
         K.steps += 1;
-        K.lengthLeft -= K.lastMove;
-        K.lengthPass += K.lastMove;
     }
+    K.steps += 1;
+    K.lengthLeft -= K.lastMove;
+    K.lengthPass += K.lastMove;
 
     cout << K.steps << K.lengthPass << K.lastMove << endl;
 
