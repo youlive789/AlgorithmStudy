@@ -31,6 +31,16 @@ Step moveStep(Step K) {
     moveStep(K);
 }
 
+int getOptimalStep(const int& length) {
+    if (length <= 3) return length;
+    if (length % 2 == 0) {
+        return -2 + ceil(sqrt(1 + 4 * length));
+    }
+    else {
+        return -2 + ceil(sqrt(2 + 4* length));
+    }
+}
+
 int main() {
 
     int cases;
@@ -39,15 +49,7 @@ int main() {
     while (cases--) {
         int x, y;
         cin >> x >> y;
-
-        Step K;
-        K.steps = 0;
-        K.lengthPass = 0;
-        K.lengthLeft = y - x;
-        K.lastMove = 0;
-        
-        K = moveStep(K);
-        cout << K.steps << endl;
+        cout << getOptimalStep(y - x) << endl;
     }
 
     return 0;
