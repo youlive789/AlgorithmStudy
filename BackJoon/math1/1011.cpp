@@ -10,6 +10,7 @@ struct Step {
     int lastMove;
 };
 
+// Bruteforce
 Step moveStep(Step K) {
     if (K.lengthLeft <= 0) return K;
 
@@ -51,3 +52,20 @@ int main() {
 
     return 0;
 }
+
+/*
+1 1
+2 2
+3 3
+
+4 6     sum(n/2) * 2 = L
+5 9     sum(n/2) * 2 + ceil(n/2) = L
+6 12    
+7 16    
+8 20    
+9 25    
+
+L / 2 = sum(n/2) = (n/2) * (n/2 + 1) / 2
+L = n/2 * (n/2 + 1)
+2L = n^2 + 2n
+*/
