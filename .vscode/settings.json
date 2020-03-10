@@ -41,6 +41,8 @@
         "vector": "cpp",
         "array": "cpp",
         "string_view": "cpp",
-        "iomanip": "cpp"
+        "iomanip": "cpp",
+        "bitset": "cpp",
+        "regex": "cpp"
     }
 }
