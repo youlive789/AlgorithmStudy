@@ -15,13 +15,15 @@ using namespace std;
 void findPartition(const int& testNumber, const bool* eratos, const int& lengthEratos) {
     int diffPartition = 999999;
     int answer1 = 0, answer2 = 0;
-    for (int i = 2; i <= lengthEratos; i++) {
-        for (int j = i; j <= lengthEratos; j++) {
-            bool prime = eratos[i] && eratos[j];
-            bool partition = (i + j == testNumber) ? true : false;
-            if (prime && partition) {
-                if (diffPartition > j - i) {
-                    answer1 = i, answer2 = j;
+    for (int i = 2;  i <= lengthEratos; i++) {
+        if (eratos[i]) {
+            for (int j = i; j <= lengthEratos; j++) {
+                bool prime = eratos[j];
+                bool partition = (i + j == testNumber) ? true : false;
+                if (prime && partition) {
+                    if (diffPartition > j - i) {
+                        answer1 = i, answer2 = j;
+                    }
                 }
             }
         }
@@ -33,8 +35,12 @@ void findPartition(const int& testNumber, const bool* eratos, const int& lengthE
 
 int main() {
 
-    int testNumber;
-    while (cin >> testNumber) {
+    int cases;
+    cin >> cases;
+    while (cases--) {
+        int testNumber;
+        cin >> testNumber;
+
         bool eratosGrid[testNumber + 1];
         for (int index = 0; index < testNumber + 1; index ++) {
             eratosGrid[index] = true;
