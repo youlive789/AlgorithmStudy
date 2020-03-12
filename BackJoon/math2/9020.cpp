@@ -1,5 +1,5 @@
 #include <iostream>
-#include <vector>
+#include <cstring>
 
 using namespace std;
 
@@ -8,56 +8,50 @@ using namespace std;
 4 = 2 + 2
 6 = 3 + 3
 
-1. 주어진 범위의 에라토스 채를 생성
-2. 두 개의 루프를 순회하면서 골드바흐 파티션 탐색
+1. 주어진 숫자보다 작은 모든 소수를 구한다.
+2. 구한 소수들의 조합 중 가능 작은 차이의 조합을 찾는다.
+
 */
 
-void findPartition(const int& testNumber, const bool* eratos, const int& lengthEratos) {
-    int diffPartition = 999999;
-    int answer1 = 0, answer2 = 0;
-    for (int i = 2;  i <= lengthEratos; i++) {
+bool* getEratos() {
+    static bool eratos[10001];
+    memset(eratos, true, sizeof(eratos));
+
+    int i = 2, j = 4;
+    while (i * i <= 10000) {
         if (eratos[i]) {
-            for (int j = i; j <= lengthEratos; j++) {
-                bool prime = eratos[j];
-                bool partition = (i + j == testNumber) ? true : false;
-                if (prime && partition) {
-                    if (diffPartition > j - i) {
-                        answer1 = i, answer2 = j;
-                    }
-                }
+            while (j <= 10000) {
+                eratos[j] = false;
+                j += i;
             }
         }
+        i++;
+        j = i * 2;
     }
-    if (answer1 != 0 && answer2 != 0) {
-        cout << answer1 << " " << answer2 << endl;
-    }
+
+    return eratos;
 }
 
 int main() {
+    
+    bool* eratosGrid = getEratos();
 
     int cases;
     cin >> cases;
+
     while (cases--) {
+
         int testNumber;
         cin >> testNumber;
 
-        bool eratosGrid[testNumber + 1];
-        for (int index = 0; index < testNumber + 1; index ++) {
-            eratosGrid[index] = true;
+        for (int index = testNumber / 2; index > 1; index--) {
+            bool bothPrime = (eratosGrid[index] && eratosGrid[testNumber - index]);
+            if (bothPrime) {
+                cout << index << " " << testNumber - index << endl;
+                break;
+            }
         }
 
-        int i = 2, j = 4;
-        while (i * i <= testNumber) {
-            if (eratosGrid[i]) {
-                while (j <= testNumber) {
-                    eratosGrid[j] = false;
-                    j += i;
-                }
-            }
-            i += 1;
-            j = i * 2;
-        }
-        findPartition(testNumber, eratosGrid, sizeof(eratosGrid)/sizeof(bool));
     }
     return 0;
 }
