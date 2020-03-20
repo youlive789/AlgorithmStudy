@@ -43,6 +43,7 @@
         "string_view": "cpp",
         "iomanip": "cpp",
         "bitset": "cpp",
-        "regex": "cpp"
+        "regex": "cpp",
+        "algorithm": "cpp"
     }
 }
