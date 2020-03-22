@@ -44,6 +44,7 @@
         "iomanip": "cpp",
         "bitset": "cpp",
         "regex": "cpp",
-        "algorithm": "cpp"
+        "algorithm": "cpp",
+        "map": "cpp"
     }
 }
