@@ -19,7 +19,11 @@ class Solution{
         //Complete this method
         Node* node = new Node(data);
         Node* cur = head;
-        while (cur->next != NULL) {
+        if (cur == NULL) {
+            return node;
+        }
+
+        while (NULL != cur->next) {
             cur = cur->next;
         }
         cur->next = node;
