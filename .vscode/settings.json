@@ -45,6 +45,7 @@
         "bitset": "cpp",
         "regex": "cpp",
         "algorithm": "cpp",
-        "map": "cpp"
+        "map": "cpp",
+        "list": "cpp"
     }
 }
