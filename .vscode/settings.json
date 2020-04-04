@@ -46,6 +46,7 @@
         "regex": "cpp",
         "algorithm": "cpp",
         "map": "cpp",
-        "list": "cpp"
+        "list": "cpp",
+        "stack": "cpp"
     }
 }
