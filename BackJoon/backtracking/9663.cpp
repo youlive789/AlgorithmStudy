@@ -8,6 +8,7 @@ const int direction[8][2] = {{-1, -1}, {0, -1}, {1, -1}, {1, 0}, {1, 1}, {0, 1},
 void init(int** board, int N);
 void queen(int** board, int x, int y, int count, int N);
 void path(int** board, int x, int y, int dx, int dy, int N);
+void printBoard(int** board, int N);
 
 void init(int** board, int N) {
     for (int i = 0; i < N; i++) {
@@ -17,28 +18,47 @@ void init(int** board, int N) {
     }
 }
 
-void queen(int** board, int x, int y, int count, int N) {
+void printBoard(int** board, int N) {
+    // 보드 상태 프린트
+    int tempCount = 0;
+    for (int i = 0; i < N; i++) {
+        for (int j = 0; j < N; j++) {
+            if (board[i][j] == 1) {
+                tempCount++;
+            }
+        }
+    }
+
+    if (tempCount == N) {
+        for (int i = 0; i < N; i++) {
+            for (int j = 0; j < N; j++) {
+                cout << ' ' <<board[i][j] << ' ';
+            }
+            cout << endl;
+        }
+        cout << endl;
+    }
+}
+
+void queen(int** board, int x, int y, int count, int N) {        
     if (count == N) {
+        cout << count << endl;
         answer++;
         return;
     } 
-    
+
+    // 8방향 이동경로 체크하기
     board[y][x] = 1;
     for (int idx = 0; idx < 8; idx++) {
         path(board, x + direction[idx][0], y + direction[idx][1], direction[idx][0], direction[idx][1], N);
     }
 
-    for (int i = 0; i < N; i++) {
-        for (int j = 0; j < N; j++) {
-            cout << ' ' <<board[i][j] << ' ';
-        }
-        cout << endl;
-    }
-    cout << endl;
+    printBoard(board, N);
 
+    // 모든 보드 경우의 수에 대해 반복
     for (int j = 0; j < N; j++) {
         for (int i = 0; i < N; i++) {
-            if (board[j][i] != 0 && board[j][i] != 1) {
+            if (board[j][i] < 0) {
                 queen(board, i, j, count+1, N);
             }
         }
