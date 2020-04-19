@@ -1,108 +1,54 @@
 #include <iostream>
-
 using namespace std;
 
-int answer = 0;
-const int direction[8][2] = {{-1, -1}, {0, -1}, {1, -1}, {1, 0}, {1, 1}, {0, 1}, {-1, 1}, {-1, 0}};
+int N, cnt;
+int col[15 + 1];
 
-void init(int** board, int N);
-void queen(int** board, int x, int y, int count, int N);
-void path(int** board, int x, int y, int dx, int dy, int N);
-void printBoard(int** board, int N);
-
-void init(int** board, int N) {
-    for (int i = 0; i < N; i++) {
-        for (int j = 0; j < N; j++) {
-            board[i][j] = -1;
-        }
+//배치 가능한지 여부
+bool promising(int i)
+{
+    int k = 1;
+    bool flag = true;
+    while (k < i && flag)
+    {
+        //같은 열이거나 대각선이라면 배치 못함
+        if (col[i] == col[k] || abs(col[i] - col[k]) == i - k)
+            flag = false;
+        k++;
     }
+    return flag;
 }
 
-void printBoard(int** board, int N) {
-    // 보드 상태 프린트
-    int tempCount = 0;
-    for (int i = 0; i < N; i++) {
-        for (int j = 0; j < N; j++) {
-            if (board[i][j] == 1) {
-                tempCount++;
+void queens(int i)
+{
+    if (promising(i))
+    {
+        //판이 완성
+        if (i == N)
+            cnt++;
+        else
+            //해당 열에 배치
+            for (int j = 1; j <= N; j++)
+            {
+                col[i + 1] = j;
+                queens(i + 1);
             }
-        }
-    }
-
-    if (tempCount == N) {
-        for (int i = 0; i < N; i++) {
-            for (int j = 0; j < N; j++) {
-                cout << ' ' <<board[i][j] << ' ';
-            }
-            cout << endl;
-        }
-        cout << endl;
     }
 }
 
-void queen(int** board, int x, int y, int count, int N) {        
-    if (count == N) {
-        cout << count << endl;
-        answer++;
-        return;
-    } 
+int main(void)
+{
+    /*
+    1. promising 함수를 통해 해당 칸에 퀸을 배치할 수 있는지 여부를 판단합니다.
+    2. promising 함수가 true를 반환할 경우
+        i) N 번째 열까지 도달했을 경우 완성된 체스판이므로 개수를 셉니다
+        ii) 해당 열 모든 칸에 퀸을 배치하면서 가능성을 판단합니다다
+    3. 총 완성된 체스판의 수를 출력합니다.
+    */
 
-    // 8방향 이동경로 체크하기
-    board[y][x] = 1;
-    for (int idx = 0; idx < 8; idx++) {
-        path(board, x + direction[idx][0], y + direction[idx][1], direction[idx][0], direction[idx][1], N);
-    }
-
-    printBoard(board, N);
-
-    // 모든 보드 경우의 수에 대해 반복
-    for (int j = 0; j < N; j++) {
-        for (int i = 0; i < N; i++) {
-            if (board[j][i] < 0) {
-                queen(board, i, j, count+1, N);
-            }
-        }
-    }
-}
-
-void path(int** board, int x, int y, int dx, int dy, int N) {
-    if (x < 0 || y < 0) return;
-    if (x > N - 1 || y > N - 1) return;
-    if (board[y][x] != 1) {
-        board[y][x] = 0;
-    }
-    path(board, x + dx, y + dy, dx, dy, N);
-}
-
-int main() {
-
-    int N;
+    cin.tie(0); //cin 실행속도 향상
     cin >> N;
-
-    int** board = new int*[N];
-    for (int i = 0; i < N; i++) {
-        board[i] = new int[N];
-    }
-
-    init(board, N);
-
-    for (int j = 0; j < N; j++) {
-        for (int i = 0; i < N; i++) {
-            queen(board, i, j, 1, N);
-            init(board, N);
-        }
-    } 
-
-    cout << answer << endl;
-    // -1 : 퀸과 이동경로가 아닌 곳
-    //  0 : 이동경로
-    //  1 : 퀸이 있는 곳
-
-    // 더이상 경우의 수가 없을 때까지 반복
-        // 왼쪽 위부터 퀸을 놓는다.
-            // 퀸이 N개가 될 때까지 반복
-            // 이동경로를 모두 칠한다. (8방향)
-            // 이동경로가 아닌 곳에 퀸을 놓는다.
-
+    queens(0);
+    cout << cnt << "\n";
     return 0;
 }
