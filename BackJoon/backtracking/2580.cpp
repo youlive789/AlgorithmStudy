@@ -4,7 +4,7 @@ using namespace std;
 
 int board[9][9];
 
-int printBoard() {
+void printBoard() {
     for (int i = 0; i < 9; i++) {
         for (int j = 0; j < 9; j++) {
             cout << board[i][j] << " ";
@@ -77,6 +77,8 @@ int main() {
         }
     }
     
+    searchSquare();
+
     for (int i = 0; i < 9; i++) {
         searchRow(i);
     }
@@ -85,7 +87,6 @@ int main() {
         searchCol(i);
     }
 
-    searchSquare();
     printBoard();
 
     return 0;
