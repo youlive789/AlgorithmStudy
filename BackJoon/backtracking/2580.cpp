@@ -46,7 +46,24 @@ void searchCol(int col) {
 }
 
 void searchSquare() {
-
+    for (int i = 0; i < 3; i++) {
+        for (int j = 0; j < 3; j++) {
+            int sum = 0;
+            int row = i * 3;
+            int col = j * 3;
+            if (board[row+1][col+1] == 0) {
+                sum += board[row][col];
+                sum += board[row][col+1];
+                sum += board[row][col+2];
+                sum += board[row+1][col];
+                sum += board[row+1][col+2];
+                sum += board[row+2][col];
+                sum += board[row+2][col+1];
+                sum += board[row+2][col+2];
+                board[row+1][col+1] = 45 - sum;
+            }
+        }
+    }
 }
 
 int main() {
@@ -68,7 +85,7 @@ int main() {
         searchCol(i);
     }
 
-    cout << endl;
+    searchSquare();
     printBoard();
 
     return 0;
