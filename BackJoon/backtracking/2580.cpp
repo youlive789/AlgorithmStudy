@@ -1,7 +1,7 @@
 #include <iostream>
-#include <string>
 using namespace std;
 
+int zeros = 0;
 int board[9][9];
 
 void printBoard() {
@@ -27,6 +27,7 @@ void searchRow(int row) {
     }
     if (zeroCount == 0) return;
     board[row][zeroIndex] = 45 - sum;
+    zeros--;
 }
 
 void searchCol(int col) {
@@ -43,6 +44,7 @@ void searchCol(int col) {
     }
     if (zeroCount == 0) return;
     board[zeroIndex][col] = 45 - sum;
+    zeros--;
 }
 
 void searchSquare() {
@@ -61,8 +63,20 @@ void searchSquare() {
                 sum += board[row+2][col+1];
                 sum += board[row+2][col+2];
                 board[row+1][col+1] = 45 - sum;
+                zeros--;
             }
         }
+    }
+}
+
+void sudoku() {
+    if (zeros > 0) {
+        for (int i = 0; i < 9; i++) {
+            searchCol(i);
+            searchRow(i);
+        }
+        searchSquare();
+        sudoku();
     }
 }
 
@@ -74,19 +88,11 @@ int main() {
             int tmp;
             cin >> tmp;
             board[i][j] = tmp;
+            if (tmp == 0) zeros++;
         }
     }
-    
-    searchSquare();
-
-    for (int i = 0; i < 9; i++) {
-        searchRow(i);
-    }
-
-    for (int i = 0; i < 9; i++) {
-        searchCol(i);
-    }
-
+    sudoku();
+    cout << endl;
     printBoard();
 
     return 0;

@@ -1,56 +1,33 @@
 #include <iostream>
 #include <cstddef>
+#include <string>
 using namespace std;	
+
 class Node
 {
     public:
-        int data;
-        Node *next;
-        Node(int d){
-            data=d;
-            next=NULL;
-        }
+        string data = "wow";
+        
 };
-class Solution{
-    public:
 
-      Node* insert(Node *head,int data)
-      {
-        //Complete this method
-        Node* node = new Node(data);
-        Node* cur = head;
-        if (cur == NULL) {
-            return node;
-        }
-
-        while (NULL != cur->next) {
-            cur = cur->next;
-        }
-        cur->next = node;
-
-        return head;
-      }
-
-      void display(Node *head)
-      {
-          Node *start=head;
-          while(start)
-          {
-              cout<<start->data<<" ";
-              start=start->next;
-          }
-      }
-};
 int main()
 {
-	Node* head=NULL;
-  	Solution mylist;
-    int T,data;
-    cin>>T;
-    while(T-->0){
-        cin>>data;
-        head=mylist.insert(head,data);
-    }	
-	mylist.display(head);
-		
+	Node* a = new Node();
+    Node* b = new Node();
+    cout << &(a->data) << endl;
+    cout << &(b->data) << endl;
+
+    if (&(a->data) == &(b->data)) {
+        cout << "같음" << endl;
+    }
+    else {
+        cout << "틀림" << endl;
+    }
+
+    if (a->data == b->data) {
+        cout << "값 같음" << endl;
+    }
+    else {
+        cout << "값 틀림" << endl;
+    }
 }
