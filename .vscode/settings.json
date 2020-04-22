@@ -47,6 +47,7 @@
         "algorithm": "cpp",
         "map": "cpp",
         "list": "cpp",
-        "stack": "cpp"
+        "stack": "cpp",
+        "deque": "cpp"
     }
 }
