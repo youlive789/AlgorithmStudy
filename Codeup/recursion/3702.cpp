@@ -21,10 +21,8 @@ int main() {
     cin >> r >> c;
 
     int n = r + c - 2;
-    int s = n % 2 == 0 ? 1 : 0;
-    int t = abs(c - n) - s;
 
-    cout << comb(n, t) << endl;
+    cout << comb(n, c -1) << endl;
 
     return 0;
 }
