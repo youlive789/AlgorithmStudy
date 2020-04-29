@@ -1,42 +1,48 @@
 #include <iostream>
+#include <string.h>
 
 using namespace std;
 
-int currentNum = 99999;
-int currentCnt = -99999;
+unsigned int cache[100000000] = {0};
 
-bool cache[10000001][1000][10000001] = {false};
+int colatz(int partial_result, long long int n) {
+    if (n == 1) return partial_result;
 
-void colatz(int n, int cnt, int origin) {
-    if (n == 1) {
-        if (cnt > currentCnt) {
-            currentCnt = cnt;
-            currentNum = origin;
-        }
-        return;
-    }
-
-    if (cache[n][cnt][origin]) return;
-
-    if (n % 2 == 1) {
-        colatz(3 * n + 1, cnt + 1, origin);
+    if (cache[n]) {
+        return cache[n];
     }
     else {
-        colatz(n / 2, cnt + 1, origin);
+        if (n % 2 == 1) {
+            return cache[n] = colatz(partial_result + 1, 3 * n + 1);
+        }
+        else {
+            return cache[n] = colatz(partial_result + 1, n / 2);
+        }
     }
 }
 
 int main() {
 
-    int a, b;
-    cin >> a >> b;
+    printf("%d\n", colatz(1, 60975));
 
-    for (a; a <= b; a++) {
-        cout << a << endl;
-        colatz(a, 1, a);
-    }
+    // long long int a, b;
+    // cin >> a >> b;
 
-    cout << currentNum << " " << currentCnt << endl;
+    // int ans = INT8_MAX;
+    // int cnt = INT8_MIN;
+    // int tmp;
+    // for (a; a <= b; a++) {
+    //     tmp = colatz(1, a);
+
+    //     if (tmp > cnt) {
+    //         ans = a;
+    //         cnt = tmp;
+    //     }
+    //     else if (tmp == cnt && ans > a) {
+    //         ans = a;
+    //     }
+    // }
+    // cout << ans << " " << cnt << endl;
 
     return 0;
 }
