@@ -1,52 +1,37 @@
 #include <iostream>
+#include <vector>
 
 using namespace std;
 
-int answer = 0;
-bool grid[30] = {false};
+long long facts[31] = {0};
 
-bool valid(int seatIdx, int numSeat) {
-    if (seatIdx == 0 && !grid[seatIdx + 1]) return true;
-    if (seatIdx >= 1 && !grid[seatIdx - 1] && !grid[seatIdx + 1]) {
-        return true;
+long long fact(int k) {
+
+    if (facts[k]) {
+        return facts[k];
     }
     else {
-        return false;
-    }
-}
-
-void seat(int peopleIdx, int seatIdx, int numPeople, int numSeat) {
-
-    if (seatIdx + 1 == numSeat - 1) {
-        if (valid(seatIdx + 1, numSeat)) {
-            answer++;
-            return;
+        if (k == 1) {
+            return facts[k] = 1;
         }
-    }
-
-    if (seatIdx == numSeat - 1) {
-        if (valid(seatIdx, numSeat)) {
-            answer++;
-            return;
+        else {
+            return facts[k] = k * fact(k - 1);
         }
-    }
-
-    if (valid(seatIdx, numSeat)) {
-        grid[seatIdx] = true;
-        seat(peopleIdx+1, seatIdx+1, numPeople, numSeat);
-        grid[seatIdx] = false;
-    }
-    else {
-        seat(peopleIdx, seatIdx+1, numPeople, numSeat);
     }
 }
 
 int main() {
 
+    /*
+    발상을 전환해서 빈자리를 조합한다고 생각하면 된다.
+    그렇다면 factorial도 필요없다.
+    */
+
     int numSeat, numPeople;
     cin >> numSeat >> numPeople;
 
-    seat(0, 0, numPeople, numSeat);
+    int blank = numSeat - numPeople;
+    long long answer = fact(blank + 1) / (fact(numPeople) * fact(blank + 1 - numPeople));
 
     cout << answer << endl;
 
