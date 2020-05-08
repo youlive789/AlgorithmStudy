@@ -1,46 +1,46 @@
 #include <iostream>
-#include <vector>
 #include <algorithm>
 
 using namespace std;
 
-int main() {
+int colors[15][3] = {-1};
 
-    vector<int> rgb;
-    int cases = 0, sum = 0, lastChoice = -1, trigger = 0;
-    cin >> cases;
-    while(cases--) {
-        
-        for (int i = 0; i < 3; i++) {
-            int tmp;
-            cin >> tmp;
-            rgb.push_back(tmp);
-        }
-
-        if (lastChoice != -1) {
-            rgb.erase(rgb.begin() + lastChoice);
-        }
-
-        vector<int>::iterator min = min_element(begin(rgb), end(rgb));
-        sum += *min;
-
-        if (lastChoice == 0) {
-            trigger = 1;
-        }
-        else if (lastChoice == 1) {
-            if (distance(begin(rgb), min) == 1)
-                trigger = 1;
-        }
-        else if (lastChoice == 2) {
-            trigger = 0;
-        }
-
-        lastChoice = distance(begin(rgb), min) + trigger;
-
-        rgb.clear();
+int rgb(int cnt, int sum, int cases, int last) {
+    if (cnt >= cases) {
+        return sum;
     }
 
-    cout << sum << endl;
+    int r, b, m;
+    switch (last) {
+        case 0:
+            m = min(rgb(cnt + 1, sum + colors[cnt][1], cases, 1), rgb(cnt + 1, sum + colors[cnt][2], cases, 2));
+            break;
+        case 1:
+            m = min(rgb(cnt + 1, sum + colors[cnt][0], cases, 0), rgb(cnt + 1, sum + colors[cnt][2], cases, 2));
+            break;
+        case 2:
+            m = min(rgb(cnt + 1, sum + colors[cnt][0], cases, 0), rgb(cnt + 1, sum + colors[cnt][1], cases, 1));
+            break;
+        default: 
+            r = min(rgb(cnt + 1, sum + colors[cnt][0], cases, 0), rgb(cnt + 1, sum + colors[cnt][1], cases, 1));
+            b = min(r, rgb(cnt + 1, sum + colors[cnt][2], cases, 2));
+            m = min(r, b);
+            break;
+    }
+
+    return m;
+}
+
+int main() {
+
+    int cases;
+    cin >> cases;
+
+    for (int idx = 0; idx < cases; idx++) {
+        cin >> colors[idx][0] >> colors[idx][1] >> colors[idx][2];
+    }
+
+    cout << rgb(0, 0, cases, -1) << endl;
 
     return 0;
 }
