@@ -1,19 +1,16 @@
 #include <iostream>
 #include "LinkedList.h"
+#include "HashMap.h"
 
 int main() {
     
-    LinkdedList* list = new LinkdedList();
-    for (int i = 0; i < 10; i++) {
-        list->insertNode(new Node(i));
-    }
+    HashMap* hashmap = new HashMap();
 
-    list->deleteNode(5);
-    list->printList();
+    hashmap->set("와우!", 666);
+    std::cout << hashmap->get("와우!") << std::endl;
 
-    std::cout << "get : " << list->getNode(5) << std::endl;
-
-    delete[] list;
+    hashmap->set("와우!", 7894561);
+    std::cout << hashmap->get("와우!") << std::endl;
 
     return 0;
 }

@@ -4,14 +4,13 @@ class Node {
 public:
     int data;
     Node * next;
+    std::string key;
     Node(int data) : data(data) {}
 };
 
 class LinkdedList {
-private:
-    Node * head = nullptr;
 public:
-
+    Node * head = nullptr;
     LinkdedList() {}
 
     void insertNode(Node* node) {
