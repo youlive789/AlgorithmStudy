@@ -1,6 +1,7 @@
 #pragma once
 #include <iostream>
 #include <string>
+#include <cmath>
 #include "LinkedList.h"
 
 class HashMap {
@@ -30,7 +31,7 @@ private:
 
     void _setValue(const std::string& key, const int& value) {
         
-        int hashCode = this->_hash(key);
+        int hashCode = this->_hash(key);       
         std::pair<bool, int> chk = this->_find(key);
 
         // 키가 없다면 삽입
@@ -58,7 +59,7 @@ private:
     int _hash(const std::string& key) {
         int hashCode = 0;
         for (char k : key) {
-            hashCode += (int)k;
+            hashCode += abs(k);
         }
         return hashCode % 3;
     }
