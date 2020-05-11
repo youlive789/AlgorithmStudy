@@ -14,5 +14,11 @@ int main() {
 
     hashmap->set("와", 7891);
     std::cout << hashmap->get("와") << std::endl;
+
+    hashmap->erase("와");
+    std::cout << "삭제완료" << std::endl;
+
+    std::cout << hashmap->get("와") << std::endl;
     return 0;
+
 }

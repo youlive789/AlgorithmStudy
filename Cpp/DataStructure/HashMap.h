@@ -56,6 +56,25 @@ private:
         }
     }
 
+    void _erase(const std::string& key) {
+        this->_find_erase(key, this->_hash(key));
+    }
+
+    void _find_erase(const std::string& key, const int& hashCode) {
+        Node* cursor = this->stored[hashCode]->head; 
+
+        int deleteIdx = 0, idx = 0;
+        while (cursor != nullptr) {
+            if (cursor->key == key) {
+                deleteIdx = idx;
+                break;
+            }
+            idx++;
+        }
+
+        this->stored[hashCode]->deleteNode(deleteIdx);
+    }
+
     int _hash(const std::string& key) {
         int hashCode = 0;
         for (char k : key) {
@@ -80,6 +99,6 @@ public:
     }
 
     void erase(const std::string& key) {
-
+        this->_erase(key);
     }
 };
