@@ -86,22 +86,40 @@ void sudoku() {
         return;
     }
 
+    pair<int,int> p;
     for (int idx = 0; idx < 9; idx++) {
-        pair<int,int> p = putRow(idx);
+        p = putRow(idx);
         sudoku();
         rollback(p);
 
-        pair<int,int> p = putCol(idx);
+        p = putCol(idx);
         sudoku();
         rollback(p);
 
-        pair<int,int> p = putSquare(idx);
+        p = putSquare(idx);
         sudoku();
         rollback(p);
     }
 }
 
 int main() {
+
+    for (int r = 0; r < 9; r++) {
+        for (int c = 0; c < 9; c++) {
+            int tmp;
+            cin >> tmp;
+            grid[r][c] = tmp;
+        }
+    }
+
+    sudoku();
+    cout << endl;
+    for (int r = 0; r < 9; r++) {
+        for (int c = 0; c < 9; c++) {
+            cout << grid[r][c] << " ";
+        }
+        cout << endl;
+    }
 
     return 0;
 }
