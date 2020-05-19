@@ -119,8 +119,76 @@ void update() {
     }
 }
 
+// row 중복을 체크한다.
+bool checkRowDuplicated() {
+    for (int i = 0; i < 9; i++) {
+        set<int> check;
+        for (int j = 0; j < 9; j++) {
+            if (grid[i][j] != 0 && check.find(grid[i][j]) != check.end()) {
+                check.insert(grid[i][j]);
+            }
+            else if (grid[i][j] == 0) {
+                continue;
+            }
+            else {
+                return false;
+            }
+        }
+    }
+
+    return true;
+}
+
+// col 중복을 체크한다.
+bool checkColDuplicated() {
+    for (int i = 0; i < 9; i++) {
+        set<int> check;
+        for (int j = 0; j < 9; j++) {
+            if (grid[j][i] != 0 && check.find(grid[j][i]) != check.end()) {
+                check.insert(grid[j][i]);
+            }
+            else if (grid[j][i] == 0) {
+                continue;
+            }
+            else {
+                return false;
+            }
+        }
+    }
+
+    return true;
+}
+
+// 사각형 중복을 체크한다.
+bool checkSquareDuplicated() {
+    for (int i = 0; i < 9; i += 3) {
+        set<int> check;
+        set<int>::iterator it;
+        for (int j = 0; j < 9; j += 3) {
+            for (int r = 0; r < 3; r++) {
+                for (int c = 0; c < 3; c++) {
+                    if (grid[i+r][j+c] != 0 && check.find(grid[i+r][j+c]) != check.end()) {
+                        check.insert(grid[i+r][j+c]);
+                    }
+                    else if (grid[i+r][j+c] == 0) {
+                        continue;
+                    }
+                    else {
+                        return false;
+                    } 
+                }
+            }
+        }
+    }
+
+    return true;
+}
+
 void sudoku() { 
     // 중복된 값이 입력됐을 때 리턴처리 필요
+    // if (!checkRowDuplicated()) return;
+    // if (!checkColDuplicated()) return;
+    // if (!checkSquareDuplicated()) return;
     if (done()) return;
 
     update();
