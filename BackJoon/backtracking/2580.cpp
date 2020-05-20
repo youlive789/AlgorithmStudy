@@ -4,6 +4,7 @@
 using namespace std;
 
 int grid[9][9];
+bool possible = false;
 vector<pair<int,int>> list;
 
 void save(int row, int col) {
@@ -76,6 +77,7 @@ int main() {
     }
 
     sudoku(0);
+    if (!possible) cout << "Not Possible" << endl;
 
     return 0 ;
 }
