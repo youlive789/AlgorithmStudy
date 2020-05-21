@@ -19,7 +19,7 @@ int unfill(int startIdx, int endIdx) {
     }
 }
 
-void dfs(int index, int N) {
+void dfs(int index, int N, int toChoose) {
     // 기저사례: 더 이상 칠할 수 없다면
     if (index > N) return;
     if (index == N) {
@@ -33,11 +33,13 @@ void dfs(int index, int N) {
     cout << endl;
 
     // 위치 선택과 칠하기
-    for (int idx = 0; idx < black.size(); idx++) {
+    for (int idx = toChoose; idx < black.size(); idx++) {
         int size = black[idx];
         if (index + size - 1 < N) {
             fill(index, size);
-            dfs(index + size + 1, N);
+            dfs(index + size + 1, N, idx + 1);
+            unfill(index, index + size - 1);
+            dfs(index + 1, N, idx);
         }
     }
 }
@@ -53,7 +55,7 @@ int main() {
         black.push_back(tmp);
     }
 
-    dfs(0, N);
+    dfs(0, N, 0);
 
     cout << answer << endl;
 
