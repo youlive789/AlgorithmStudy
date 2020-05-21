@@ -64,6 +64,7 @@ int calculate(int N) {
     return numbers.front();
 }
 
+// 연산자를 백트래킹 방식으로 선택한다.
 void makeZero(int idx, int cntOper, int N) {
     if (idx == cntOper) {
         if (calculate(N) == 0) {
@@ -86,6 +87,9 @@ void makeZero(int idx, int cntOper, int N) {
 int main() {
     int N;
     cin >> N;
+
+    // 재귀함수 호출
     makeZero(0, N-1, N);
+
     return 0;
 }
