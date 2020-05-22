@@ -23,14 +23,15 @@ void dfs(int index, int N, int toChoose) {
     // 기저사례: 더 이상 칠할 수 없다면
     if (index > N) return;
     if (index == N) {
+
+        for (int i = 0; i < N; i++) {
+            cout << grid[i] << " ";
+        }
+        cout << endl;
+
         answer++;
         return;
     }
-
-    for (int i = 0; i < N; i++) {
-        cout << grid[i] << " ";
-    }
-    cout << endl;
 
     // 위치 선택과 칠하기
     for (int idx = toChoose; idx < black.size(); idx++) {
@@ -38,6 +39,7 @@ void dfs(int index, int N, int toChoose) {
         if (index + size - 1 < N) {
             fill(index, size);
             dfs(index + size + 1, N, idx + 1);
+            
             unfill(index, index + size - 1);
             dfs(index + 1, N, idx);
         }
