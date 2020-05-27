@@ -1,5 +1,5 @@
 #include <iostream>
-#include <vector>
+#include <queue>
 #include <cmath>
 #include <algorithm>
 
@@ -8,7 +8,7 @@ using namespace std;
 int sum = 0;
 bool block[20];
 
-void findMinium(vector<int> target, int N, int firstOpen, int secondOpen) {
+void findMinium(queue<int> target, int N, int firstOpen, int secondOpen) {
     // 기저사례: 모든 위치를 순회했다면 
     if (target.empty()) {
         return;
@@ -16,9 +16,7 @@ void findMinium(vector<int> target, int N, int firstOpen, int secondOpen) {
 
     // 처리해야하는 인덱스 가져오기
     int nowIdx = target.front() - 1;
-    target.front() = move(target.back());
-    target.pop_back();
-    cout << "처리해야할 인덱스 : " << nowIdx << endl;
+    target.pop();
 
     // 현재 열어야 되는 블록이 열려있다면
     if (block[nowIdx])
@@ -27,83 +25,16 @@ void findMinium(vector<int> target, int N, int firstOpen, int secondOpen) {
     }
     // 안열려있다면
     else {
-        // 정방향과 역방향중 효율적인 루트를 계산한다.
-        int nFirst = abs(firstOpen - nowIdx);
-        int nSecond = abs(secondOpen - nowIdx);
-        int nShortest = nFirst > nSecond ? nSecond : nFirst;
-        int nearest =  nFirst > nSecond ? secondOpen : firstOpen;
-
-        int rFirst = N - nFirst;
-        int rSecond = N - nSecond;
-        int rShortest = rFirst > rSecond ? rSecond : rFirst;
-        int reverseNearest = rFirst > rSecond ? secondOpen: firstOpen;
-
-        // 정방향이 효율적이라면
-        if (nShortest < rShortest) {
-            // 가까운 블록이 열려는 블록보다 인덱스가 작다면
-            if (nearest < nowIdx) {
-                // 인덱스가 큰 쪽으로 차례대로 갱신한다.
-                for (int idx = nearest; idx < nowIdx; idx++) {
-                    bool tmp = block[idx];
-                    block[idx] = block[idx+1];
-                    block[idx+1] = tmp;
-                    sum++;
-                }
-            }
-            // 가까운 블록이 열려는 블록보다 인덱스가 크다면
-            else {
-                // 인덱스가 작은 쪽으로 차례대로 갱신한다.
-                for (int idx = nearest; idx > nowIdx; idx--) {
-                    bool tmp = block[idx];
-                    block[idx] = block[idx-1];
-                    block[idx-1] = tmp;
-                    sum++;
-                }
-            }
-        }
-        // 역방향이 효율적이라면
-        else {
-            int next;
-            if (reverseNearest < nowIdx) {
-                for (int idx = reverseNearest; idx < nowIdx; idx--) {
-
-                    if (N - abs(nowIdx - idx) == 0) break;
-
-                    if (idx < 0) idx = N-1;             
-                    if (idx - 1 < 0) {
-                        next = N - 1;
-                    }
-                    else {
-                        next = idx - 1;
-                    }
-
-                    bool tmp = block[idx];
-                    block[idx] = block[next];
-                    block[next] = tmp;
-                    sum++;
-                }
-            }
-            else {
-                for (int idx = reverseNearest; idx > nowIdx; idx++) {
-
-                    if (N - abs(nowIdx - idx) == 0) break;
-
-                    if (idx > N - 1) idx = 0;
-                    if (idx + 1 > N - 1) {
-                        next = 0;
-                    }
-                    else {
-                        next = idx + 1;
-                    }
-
-                    bool tmp = block[idx];
-                    block[idx] = block[next];
-                    block[next] = tmp;
-                    sum++;
-                }
-            }
-        }
         
+        // 가장 효율적인 문 위치, 방향 결정하기
+        // 첫번째 열려있는 문에서 오른쪽 순회거리
+        // 첫번째 열려있는 문에서 왼쪽 순회거리
+        // 두번째 열려있는 문에서 오른쪽 순회거리
+        // 두번째 열려있는 문에서 왼쪽 순회거리
+
+        // 오른쪽 순회가 효율적이라면
+        // 왼쪽 순회가 효율적이라면
+
         // 인덱스 갱신
         int firstIdx = -1, secondIdx = -1;
         for (int i = 0; i < N; i ++) {
@@ -134,10 +65,10 @@ int main() {
     }
 
     int tmp;
-    vector<int> target;
+    queue<int> target;
     while (cases--) {
         cin >> tmp;
-        target.push_back(tmp);
+        target.push(tmp);
     }
     findMinium(target, N, firstOpen - 1, secondOpen - 1);
     cout << sum << endl;
