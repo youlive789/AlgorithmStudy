@@ -9,6 +9,12 @@ int sum = 0;
 bool block[20];
 
 void findMinium(queue<int> target, int N, int firstOpen, int secondOpen) {
+
+    for (int i = 0; i < N; i++) {
+        cout << block[i] << " ";
+    }
+    cout << "==> " << sum << "  처리해야할 위치 : " << target.front() << endl;
+
     // 기저사례: 모든 위치를 순회했다면 
     if (target.empty()) {
         return;
@@ -19,22 +25,75 @@ void findMinium(queue<int> target, int N, int firstOpen, int secondOpen) {
     target.pop();
 
     // 현재 열어야 되는 블록이 열려있다면
-    if (block[nowIdx])
-    {
+    if (block[nowIdx]) {
         findMinium(target, N, firstOpen, secondOpen);
     }
     // 안열려있다면
     else {
+        int firstRight, firstLeft, secondRight, secondLeft;
+        if (nowIdx > firstOpen) {
+            firstRight = abs(firstOpen - nowIdx);
+            firstLeft = N - abs(firstOpen - nowIdx);
+        }
+        else {
+            firstRight = N - abs(firstOpen - nowIdx);
+            firstLeft = abs(firstOpen - nowIdx);
+        }
+
+        if (nowIdx > secondOpen) {
+            secondRight = abs(secondOpen - nowIdx);
+            secondLeft = N - abs(secondOpen - nowIdx);
+        }
+        else {
+            secondRight = N - abs(secondOpen - nowIdx);
+            secondLeft = abs(secondOpen - nowIdx);
+        }
         
-        // 가장 효율적인 문 위치, 방향 결정하기
-        // 첫번째 열려있는 문에서 오른쪽 순회거리
-        // 첫번째 열려있는 문에서 왼쪽 순회거리
-        // 두번째 열려있는 문에서 오른쪽 순회거리
-        // 두번째 열려있는 문에서 왼쪽 순회거리
+        // 시작지점 찾기
+        int firstShortest = firstRight > firstLeft ? firstLeft : firstRight;
+        int secondShortest = secondRight > secondLeft ? secondLeft : secondRight;
+        int targetIdx = firstShortest > secondShortest ? secondOpen : firstOpen;
+
+        // 방향 찾기
+        int rightShortest = firstRight > secondRight ? secondRight : firstRight;
+        int leftShortest = firstLeft > secondLeft ? secondLeft : firstLeft;
+        bool isRight = leftShortest > rightShortest ? true : false;
+
+        /*
+        grid를 환형 자료구조로 바꾸면 편할것 같다 !!!
+        */
 
         // 오른쪽 순회가 효율적이라면
-        // 왼쪽 순회가 효율적이라면
+        if (isRight) {
+            cout << "오른쪽" << endl;
+            for (int idx = targetIdx; idx != nowIdx; idx++) {
+                int next = idx + 1;
+                if (next >= N) next = 0;
+                if (idx >= N) idx = 0;
 
+                int tmp = block[idx];
+                block[idx] = block[next];
+                block[next] = tmp;
+                sum++;
+                if (next == nowIdx) break;
+            }
+        }
+        // 왼쪽 순회가 효율적이라면
+        else {
+            cout << "왼쪽" << endl;
+            for (int idx = targetIdx; idx != nowIdx; idx--) {
+                int next = idx - 1;
+                if (next <= 0) next = N-1;
+                if (idx <= 0) idx = N-1;
+
+                int tmp = block[idx];
+                block[idx] = block[next];
+                block[next] = tmp;
+                sum++;
+                if (next == nowIdx) break;
+            }
+        }
+        
         // 인덱스 갱신
         int firstIdx = -1, secondIdx = -1;
         for (int i = 0; i < N; i ++) {
