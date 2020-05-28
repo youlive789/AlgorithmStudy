@@ -116,10 +116,14 @@ int main() {
         }
         else {
             for (int idx = 49; idx >= 0; idx--) {
-                result[i] += (nums[i][idx] - '0');
+                result[idx] += (nums[i][idx] - '0');
             }
         }
     }
+
+    for (int num : result)
+        cout << num << " ";
+    cout << endl;
 
     int i = 0;
     while (i < result.size()) {
@@ -137,6 +141,10 @@ int main() {
         }
         i++;
     }
+    
+    for (int num : result)
+        cout << num << " ";
+    cout << endl;
 
     for (int i = result.size() - 1; i >= 0; i--) {
         cout << result[i];
