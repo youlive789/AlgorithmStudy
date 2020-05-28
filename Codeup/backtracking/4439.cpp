@@ -53,6 +53,7 @@ void findMinium(queue<int> target, int N, int firstOpen, int secondOpen) {
         int firstShortest = firstRight > firstLeft ? firstLeft : firstRight;
         int secondShortest = secondRight > secondLeft ? secondLeft : secondRight;
         int targetIdx = firstShortest > secondShortest ? secondOpen : firstOpen;
+        int shortest = firstShortest > secondShortest ? secondShortest : firstShortest;
 
         // 방향 찾기
         int rightShortest = firstRight > secondRight ? secondRight : firstRight;
@@ -65,32 +66,36 @@ void findMinium(queue<int> target, int N, int firstOpen, int secondOpen) {
 
         // 오른쪽 순회가 효율적이라면
         if (isRight) {
-            cout << "오른쪽" << endl;
-            for (int idx = targetIdx; idx != nowIdx; idx++) {
+            cout << "오른쪽 " << "거리 : " << shortest << endl;
+
+            int idx = targetIdx;
+            while (shortest--) {
+                if (idx >= N) idx = 0;
                 int next = idx + 1;
                 if (next >= N) next = 0;
-                if (idx >= N) idx = 0;
-
+                cout << idx << " " << next << endl;
                 int tmp = block[idx];
                 block[idx] = block[next];
                 block[next] = tmp;
                 sum++;
-                if (next == nowIdx) break;
+                idx++;
             }
         }
         // 왼쪽 순회가 효율적이라면
         else {
-            cout << "왼쪽" << endl;
-            for (int idx = targetIdx; idx != nowIdx; idx--) {
-                int next = idx - 1;
-                if (next <= 0) next = N-1;
-                if (idx <= 0) idx = N-1;
+            cout << "왼쪽" << "거리 : " << shortest << endl;
 
+            int idx = targetIdx;
+            while (shortest--) {
+                if (idx < 0) idx = N-1;
+                int next = idx - 1;
+                if (next < 0) next = N-1;
+                cout << idx << " " << next << endl;
                 int tmp = block[idx];
                 block[idx] = block[next];
                 block[next] = tmp;
                 sum++;
-                if (next == nowIdx) break;
+                idx--;
             }
         }
         
@@ -152,5 +157,20 @@ int main() {
 10
 7
 => 6
+
+10
+1 2
+10
+8
+3
+9
+4
+2
+5
+10
+1
+6
+7
+=> 25
 
 */
