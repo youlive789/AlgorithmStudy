@@ -2,6 +2,7 @@
 
 using namespace std;
 
+int maxNum = -999;
 int grid[20][20] = {{8, 2, 22, 97, 38, 15, 0, 40, 0, 75, 4, 5, 7, 78, 52, 12, 50, 77, 91, 8},
 {49, 49, 99, 40, 17, 81, 18, 57, 60, 87, 17, 40, 98, 43, 69, 48, 4, 56, 62, 0},
 {81, 49, 31, 73, 55, 79, 14, 29, 93, 71, 40, 67, 53, 88, 30, 3, 49, 13, 36, 65},
@@ -23,6 +24,64 @@ int grid[20][20] = {{8, 2, 22, 97, 38, 15, 0, 40, 0, 75, 4, 5, 7, 78, 52, 12, 50
 {20, 73, 35, 29, 78, 31, 90, 1, 74, 31, 49, 71, 48, 86, 81, 16, 23, 57, 5, 54},
 {1, 70, 54, 71, 83, 51, 54, 69, 16, 92, 33, 48, 61, 43, 52, 1, 89, 19, 67, 48}};
 
+void multiply(int row, int col) {
+
+    int numTrigger = 0;
+
+    // 좌대각
+    int left = 1;
+    for (int i = 0; i < 4; i++) {
+        if (row + i < 20 && col + i < 20) {
+            left *= grid[row+i][col+i];
+            numTrigger++;
+        }
+    }
+    if (numTrigger == 4 && maxNum < left) maxNum = left;
+    numTrigger = 0;
+
+    // 우대각
+    int right = 1;
+    for (int i = 0; i < 4; i++) {
+        if (row + i < 20 && col - i >= 0) {
+            right *= grid[row+i][col-i];
+            numTrigger++;
+        }
+    }
+    if (numTrigger == 4 && maxNum < right) maxNum = right;
+    numTrigger = 0;
+
+    // 수평
+    int horizon = 1;
+    for (int i = 0; i < 4; i++) {
+        if (col + i < 20) {
+            horizon *= grid[row][col+i];
+            numTrigger++;
+        }
+    }
+    if (numTrigger == 4 && maxNum < horizon) maxNum = horizon;
+    numTrigger = 0;
+
+    // 수직
+    int vertical = 1;
+    for (int i = 0; i < 4; i++) {
+        if (row+i < 20) {
+            vertical *= grid[row+i][col];
+            numTrigger++;
+        }
+    }
+    if (numTrigger == 4 && maxNum < vertical) maxNum = vertical;
+    numTrigger = 0;
+}
+
 int main() {
+
+    for (int row = 0; row < 20; row++) {
+        for (int col = 0; col < 20; col++) {
+            multiply(row, col);
+        }
+    }
+
+    cout << maxNum << endl;
+
     return 0;
 }
