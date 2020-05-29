@@ -105,10 +105,13 @@ string nums[100] = {"37107287533902102798797998220837590246510135740250",
 "20849603980134001723930671666823555245252804609722",
 "53503534226472524250874054075591789781264330331690"};
 
+// vector<string> nums = {"12345", "45651", "95846"};
+
 int main() {
 
     vector<int> result;
     for (int i = 0; i < 100; i++) {
+        
         if (result.empty()) {
             for (int idx = 49; idx >= 0; idx--) {
                 result.push_back(nums[i][idx] - '0');
@@ -116,14 +119,10 @@ int main() {
         }
         else {
             for (int idx = 49; idx >= 0; idx--) {
-                result[idx] += (nums[i][idx] - '0');
+                result[49 - idx] += (nums[i][idx] - '0');
             }
         }
     }
-
-    for (int num : result)
-        cout << num << " ";
-    cout << endl;
 
     int i = 0;
     while (i < result.size()) {
@@ -132,7 +131,6 @@ int main() {
             int up = num / 10;
             result[i] -= (up * 10);
             if (i+1 >= result.size()) {
-                cout << "작동" << i + 1 << endl;
                 result.push_back(up);
             }
             else {
@@ -141,12 +139,8 @@ int main() {
         }
         i++;
     }
-    
-    for (int num : result)
-        cout << num << " ";
-    cout << endl;
 
-    for (int i = result.size() - 1; i >= 0; i--) {
+    for (int i = result.size() - 1; i > result.size() - 11; i--) {
         cout << result[i];
     }
     cout << endl;
