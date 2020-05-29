@@ -3,16 +3,13 @@
 using namespace std;
 
 int grid[21][21];
-unsigned int cache[21][21];
+unsigned long long cache[21][21];
 
-long long findDirection(int row, int col) {
+unsigned long long findDirection(int row, int col) {
     if (row > 20 || col > 20) return 0;
-    if (grid[20][20]) {
-        return 1;
-    }
-
-    // 오른쪽 혹은 아래로 이동한다.
-    unsigned int right;
+    if (grid[20][20]) return 1;
+    
+    unsigned long long right;
     if (cache[row][col + 1]) {
         right = cache[row][col + 1];
     }
@@ -23,7 +20,7 @@ long long findDirection(int row, int col) {
     }
 
 
-    unsigned int down;
+    unsigned long long down;
     if (grid[row + 1][col]) {
         down = cache[row + 1][col];
     }
@@ -38,7 +35,7 @@ long long findDirection(int row, int col) {
 
 int main() {
 
-    int result = findDirection(0, 0);
+    long long result = findDirection(0, 0);
     cout << result << endl;
 
     return 0;
