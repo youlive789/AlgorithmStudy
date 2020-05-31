@@ -1,7 +1,4 @@
 #include <iostream>
-#include <iomanip>
-#include <sstream>
-#include <limits>
 #include <string>
 #include <cmath>
 
@@ -14,21 +11,30 @@ int main() {
     // double rest = test - (tmp * 2);
     // cout << tmp << " " << rest << endl;
 
-    
-    double test = pow(2, 1000);
-    ostringstream numberStream;
-    numberStream << fixed << setprecision(numeric_limits<double>::digits10) << test;
-    string number = numberStream.str();
+    string a = "2";
+    string b = "2";
+    string c = "0";
 
-    unsigned long long result = 0;
-
-    cout << test << endl;
-
-    for (char num : number) {
-        result += (num - '0');
+    int cnt = 10;
+    while (cnt--) {
+        for (int i = 0; i < a.size(); i++) {
+            for (int j = 0; j < b.size(); j++) {
+                c[i + j] += (a[i] - '0') * (b[j] - '0');
+                if (c[i + j] - '0' > 9) {
+                    c[i + j + 1] += ((c[i + j] - '0') / 10) + '0';
+                    c[i + j] = ((c[i + j] - '0') % 10) + '0';
+                }
+            }
+        }
+        a = c;
+        cout << a << " " << b << " " << c << endl;
     }
 
-    cout << result << endl;
+    cout << c << endl;
+
+    // while (cnt--) {
+    //     t.at()
+    // }
 
     return 0;
 }
