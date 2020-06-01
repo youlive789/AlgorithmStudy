@@ -3,10 +3,34 @@
 
 using namespace std;
 
+struct round {
+    int win;
+    int draw;
+    int lose;
+};
+
+bool checkAllRounds(int scoreTable[18]) {
+    round rounds[6];
+    for (int idx = 0; idx < 6; idx++) {
+        rounds[idx].win = scoreTable[idx * 3];
+        rounds[idx].draw = scoreTable[idx * 3 + 1];
+        rounds[idx].lose = scoreTable[idx * 3 + 2];
+    }
+
+    for (int idx = 0; idx < 6; idx++) {
+
+        // 승수 체크
+    
+        // 무승부 체크
+
+        // 패수 체크
+    }
+
+    return true;
+}
+
 int main() {
-
     int scoreTable[4][18];
-
     int cases = 4, casesIdx = 4;
     while (cases--) {
         for (int idx = 0; idx < 18; idx++) {
@@ -65,8 +89,14 @@ int main() {
             continue;
         }
 
-        // 백트래킹 시작
-        cout << 1 << " ";
+        // 모든 국가와 경기했는지 확인
+        if (checkAllRounds(scoreTable[cases])) {
+            cout << 1 << " ";
+        }
+        else {
+            cout << 0 << " ";
+        }
+        
     }
 
     return 0;
@@ -77,11 +107,18 @@ int main() {
 5 0 0 0 5 0 0 0 5 5 0 0 0 5 0 0 0 5
 2 3 0 0 0 5 2 3 0 2 3 0 1 0 4 2 3 0
 4 1 0 3 1 1 2 1 2 2 1 2 0 1 4 1 1 3
+=> 0 0 1 1
 
-500
-050
-005
-500
-050
-005
+0 5 0 0 5 0 0 5 0 0 5 0 0 5 0 0 5 0
+1 4 0 1 4 0 0 4 1 0 4 1 3 0 2 2 0 3
+5 0 0 0 0 5 4 0 1 1 0 4 5 0 0 0 0 5
+1 3 1 1 3 1 4 0 1 1 0 4 4 0 1 1 0 4
+=> 1 0 0 0
+
+4 1 0 
+3 1 1 
+2 1 2 
+2 1 2 
+0 1 4 
+1 1 3
 */
