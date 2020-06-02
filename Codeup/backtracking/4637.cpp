@@ -1,5 +1,5 @@
 #include <iostream>
-#include <set>
+#include <vector>
 
 using namespace std;
 
@@ -11,54 +11,47 @@ struct round {
 
 bool result[4];
 
-void cntRounds(int cases, round rounds[6], int nowIdx) {
+void cntRounds(int cases, round rounds[6], int firstIdx, int secondIdx, int cnt) {
 
-    if (nowIdx == 6) {
+    if (cnt == 15) {
         for (int i = 0; i < 6; i++) {
-            if (rounds[i].win != 0 || rounds[i].draw != 0 || rounds[i].lose != 0) break;
+            if (rounds[i].win != 0 || rounds[i].draw != 0 || rounds[i].lose != 0) return;
         }
         result[cases] = true;
         return;
     }
 
-    if (cases == 2) {
-        cout << "경기 인덱스 " << cases << " ==> ";
-        for (int i = 0; i < 6; i++) {
-            cout << rounds[i].win << " ";
-            cout << rounds[i].draw << " ";
-            cout << rounds[i].lose << " ";
-        }
-        cout << endl;
-    }
-
     // 모든 국가끼리 경기를 수행해본다.
-    for (int idx = nowIdx; idx < 5; idx++) {
-        // 승
-        if (rounds[idx].win > 0 && rounds[idx+1].lose > 0) {
-            rounds[idx].win--;
-            rounds[idx+1].lose--;
-            cntRounds(cases, rounds, idx+1);
-            rounds[idx].win++;
-            rounds[idx+1].lose++;
-        }
+    int lastTrigger = 0;
+    for (int i = firstIdx; i < 5; i++) {
+        for (int j = secondIdx; j < 6; j++) {
+            // 승
+            if (rounds[i].win > 0 && rounds[j].lose > 0) {
+                rounds[i].win--;
+                rounds[j].lose--;
+                cntRounds(cases, rounds, i, j, cnt+1);
+                rounds[i].win++;
+                rounds[j].lose++;
+            }
 
-        // 무승부
-        if (rounds[idx].draw > 0 && rounds[idx+1].draw > 0) {
-            rounds[idx].draw--;
-            rounds[idx+1].draw--;
-            cntRounds(cases, rounds, idx+1);
-            rounds[idx].draw++;
-            rounds[idx+1].draw++;
-        }
+            // 무승부
+            if (rounds[i].draw > 0 && rounds[j].draw > 0) {
+                rounds[i].draw--;
+                rounds[j].draw--;
+                cntRounds(cases, rounds, i, j, cnt+1);
+                rounds[i].draw++;
+                rounds[j].draw++;
+            }
 
-        // 패
-        if (rounds[idx].lose > 0 && rounds[idx+1].win > 0) {
-            rounds[idx].lose--;
-            rounds[idx+1].win--;
-            cntRounds(cases, rounds, idx+1);
-            rounds[idx].lose++;
-            rounds[idx+1].win++;
-        }
+            // 패
+            if (rounds[i].lose > 0 && rounds[j].win > 0) {
+                rounds[i].lose--;
+                rounds[j].win--;
+                cntRounds(cases, rounds, i, j, cnt+1);
+                rounds[i].lose++;
+                rounds[j].win++;
+            }
+        }       
     }
 }
 
@@ -78,7 +71,7 @@ int main() {
     }
 
     for (int i = 0; i < 4; i++)
-        cntRounds(i, rounds[i], 0);
+        cntRounds(i, rounds[i], 0, 1, 0);
 
     for (int i = 0; i < 4; i++)
         cout << result[i] << " ";
@@ -99,4 +92,11 @@ int main() {
 5 0 0 0 0 5 4 0 1 1 0 4 5 0 0 0 0 5
 1 3 1 1 3 1 4 0 1 1 0 4 4 0 1 1 0 4
 => 1 0 0 0
+
+4 0 0 
+4 0 1 
+3 0 2 
+2 0 3 
+1 0 4 
+0 0 4
 */
