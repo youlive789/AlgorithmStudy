@@ -3,7 +3,7 @@
 
 using namespace std;
 
-struct round {
+struct country {
     int win;
     int draw;
     int lose;
@@ -11,11 +11,60 @@ struct round {
 
 bool result[4];
 
-void cntRounds(int cases, round rounds[6]) {
+void cntRounds(int cases, country countries[6], int nowIdx) {
 
+    // if (cases == 0) {
+    //     cout << nowIdx << " ";
+    //     for (int i = 0; i < 6; i ++) {
+    //         cout << countries[i].win << " " << countries[i].draw << " " << countries[i].lose << " ";
+    //     }
+    //     cout << endl;
+    // }
+
+    if (nowIdx == 6) {
+        for (int i = 0; i < 6; i ++) {
+            if (countries[i].win != 0 || countries[i].draw != 0 || countries[i].lose != 0) return;
+        }
+
+        result[cases] = true;
+    }
 
     // 모든 국가끼리 경기를 수행해본다.
-    
+
+    for (int idx = nowIdx; idx <= 6; idx++) {
+        for (int i = 0; i < 6; ++i) {
+            
+            if (i == idx) continue;
+            //if (cases == 0) cout << idx << " " << i << endl;
+            
+            // 승
+            if (countries[idx].win > 0 && countries[i].lose > 0) {
+                countries[idx].win--;
+                countries[i].lose--;
+                cntRounds(cases, countries, idx);
+                countries[idx].win++;
+                countries[i].lose++;
+            }
+
+            // 무승부
+            if (countries[idx].draw > 0 && countries[i].draw > 0) {
+                countries[idx].draw--;
+                countries[i].draw--;
+                cntRounds(cases, countries, idx);
+                countries[idx].draw++;
+                countries[i].draw++;
+            }
+
+            // 패
+            if (countries[nowIdx].lose > 0 && countries[i].win > 0) {
+                countries[nowIdx].lose++;
+                countries[i].win--;
+                cntRounds(cases, countries, nowIdx);
+                countries[nowIdx].lose--;
+                countries[i].win++;
+            }
+        }
+    }
 }
 
 /*
@@ -35,21 +84,21 @@ void cntRounds(int cases, round rounds[6]) {
 
 int main() {
 
-    round rounds[4][6];
+    country countries[4][6];
 
     for (int i = 0; i < 4; i++) {
         for (int j = 0; j < 18; j++) {
             int tmp;
             cin >> tmp;
 
-            if (j % 3 == 0) rounds[i][j / 3].win = tmp;
-            if (j % 3 == 1) rounds[i][j / 3].draw = tmp;
-            if (j % 3 == 2) rounds[i][j / 3].lose = tmp;
+            if (j % 3 == 0) countries[i][j / 3].win = tmp;
+            if (j % 3 == 1) countries[i][j / 3].draw = tmp;
+            if (j % 3 == 2) countries[i][j / 3].lose = tmp;
         }
     }
 
     for (int i = 0; i < 4; i++)
-        cntRounds(i, rounds[i], 0, 1, 0);
+        cntRounds(i, countries[i], 0);
 
     for (int i = 0; i < 4; i++)
         cout << result[i] << " ";

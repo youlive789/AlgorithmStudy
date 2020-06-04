@@ -87,6 +87,7 @@
         "valarray": "cpp",
         "variant": "cpp",
         "xtree": "cpp",
-        "queue": "cpp"
+        "queue": "cpp",
+        "locale": "cpp"
     }
 }
