@@ -1,5 +1,4 @@
 #include <iostream>
-#include <vector>
 
 using namespace std;
 
@@ -10,7 +9,12 @@ int mul(int n, int k) {
         return n;
     }
     else {
-        return n * mul(n, k-1);
+        if (cache[k]) {
+            return cache[k];
+        }
+        else {
+            return cache[k] = (mul(n, k-1) * n) % 1000000007;
+        }
     }
 }
 
@@ -18,7 +22,7 @@ int main() {
 
     int n, k;
     cin >> n >> k;
-
+    cout << mul(n, k) << endl;
 
     return 0;
 }
