@@ -17,8 +17,9 @@ int getWordNumber(const int& num) {
 
     // 100 이상인 경우
     if (number / 100 > 0) {
-        cnt += cardinal[100] + cardinal[number / 100] + 3;
+        cnt += cardinal[100] + cardinal[number / 100];
         number %= 100;
+        if (number > 0) cnt += 3;       
     }
 
     if (number < 20) {
@@ -35,11 +36,15 @@ int getWordNumber(const int& num) {
 
 int main() {
     
-    assert(getWordNumber(20) == 6);
     assert(getWordNumber(342) == 23);
     assert(getWordNumber(115) == 20);
     assert(getWordNumber(999) == 24);
 
+    assert(getWordNumber(100) == 10);
+    assert(getWordNumber(101) == 16);
+    assert(getWordNumber(20) == 6);
+    assert(getWordNumber(40) == 5);
+    
     int test = 0;
     for (int i = 1; i <= 5; i++) {
         test += getWordNumber(i);
@@ -49,8 +54,9 @@ int main() {
 
     int sum = 0;
     for (int i = 1; i < 1000; i++) {
-        cout << i << endl;
-        sum += getWordNumber(i);
+        int nowNum = getWordNumber(i);
+        cout << i << " " << nowNum << endl;
+        sum += nowNum;
     }
     sum += 11;
 
