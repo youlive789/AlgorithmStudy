@@ -4,36 +4,42 @@ using namespace std;
 
 long long cache[50000000];
 
-long long mul(int n, int k, int answer) {
+long long mul(int n, int k) {
     if (k == 0) {
         return 1;
     }
     else if (k == 1) {
-        return answer;
+        return n;
     }
     else {
-        if (cache[k]) {
-            cout << "호출" << endl;
-            return cache[k];
+        int oddTrigger = 0;
+        if (k % 2 == 1) oddTrigger = 1;
+
+        long long left, right;
+
+        if (cache[(k / 2) + oddTrigger]) {
+            left = cache[(k / 2) + oddTrigger];
         }
         else {
-            return cache[k] = mul(n, k-1, (answer * n) % 1000000007);
+            cache[(k / 2) + oddTrigger] = left = mul(n, (k / 2) + oddTrigger);    
         }
-    }
-}
 
-// k를 기하급수적으로 조정하면 cache값을 얻을 수 있다.
-long long getMultiply(int n, int k) {
-    int oddTrigger = 0;
-    if (k % 2 == 1) oddTrigger = 1;
-    return (mul(n, k / 2, n) * mul(n, k / 2 + oddTrigger, n)) % 1000000007;
+        if (cache[(k / 2)]) {
+            right = cache[(k / 2)];
+        }
+        else {
+            cache[(k / 2)] = right = mul(n, (k / 2));    
+        }
+
+        return (left * right) %  1000000007;
+    }
 }
 
 int main() {
 
     int n, k;
     cin >> n >> k;
-    cout << getMultiply(n, k) << endl;
+    cout << mul(n, k) << endl;
 
     return 0;
 }
