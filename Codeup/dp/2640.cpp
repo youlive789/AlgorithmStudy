@@ -2,9 +2,9 @@
 
 using namespace std;
 
-long long cache[50000000];
+int cache[100000000];
 
-long long mul(int n, int k) {
+int mul(int n, int k) {
     if (k == 0) {
         return 1;
     }
