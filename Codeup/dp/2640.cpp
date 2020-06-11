@@ -2,9 +2,9 @@
 
 using namespace std;
 
-int cache[100000000];
+unsigned int cache[50000001];
 
-int mul(int n, int k) {
+unsigned int mul(unsigned int n, unsigned int k) {
     if (k == 0) {
         return 1;
     }
@@ -12,10 +12,12 @@ int mul(int n, int k) {
         return n;
     }
     else {
-        int oddTrigger = 0;
+        unsigned int oddTrigger = 0;
         if (k % 2 == 1) oddTrigger = 1;
 
-        long long left, right;
+        unsigned long long left, right;
+
+        // cout << (k / 2) + oddTrigger << " " << (k / 2)  << endl;
 
         if (cache[(k / 2) + oddTrigger]) {
             left = cache[(k / 2) + oddTrigger];
@@ -37,7 +39,7 @@ int mul(int n, int k) {
 
 int main() {
 
-    int n, k;
+    unsigned int n, k;
     cin >> n >> k;
     cout << mul(n, k) << endl;
 
