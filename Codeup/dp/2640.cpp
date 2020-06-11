@@ -2,7 +2,7 @@
 
 using namespace std;
 
-unsigned int cache[50000001];
+unsigned int cache[50000];
 
 unsigned int mul(unsigned int n, unsigned int k) {
     if (k == 0) {
@@ -17,20 +17,28 @@ unsigned int mul(unsigned int n, unsigned int k) {
 
         unsigned long long left, right;
 
-        // cout << (k / 2) + oddTrigger << " " << (k / 2)  << endl;
-
-        if (cache[(k / 2) + oddTrigger]) {
-            left = cache[(k / 2) + oddTrigger];
+        if ((k / 2) + oddTrigger < 50000) {         
+            if (cache[(k / 2) + oddTrigger]) {
+                left = cache[(k / 2) + oddTrigger];
+            }
+            else {
+                cache[(k / 2) + oddTrigger] = left = mul(n, (k / 2) + oddTrigger);    
+            }
         }
         else {
-            cache[(k / 2) + oddTrigger] = left = mul(n, (k / 2) + oddTrigger);    
+            left = mul(n, (k / 2) + oddTrigger); 
         }
 
-        if (cache[(k / 2)]) {
-            right = cache[(k / 2)];
+        if ((k / 2) < 50000) {
+            if (cache[(k / 2)]) {
+                right = cache[(k / 2)];
+            }
+            else {
+                cache[(k / 2)] = right = mul(n, (k / 2));    
+            }
         }
         else {
-            cache[(k / 2)] = right = mul(n, (k / 2));    
+            right = mul(n, (k / 2));    
         }
 
         return (left * right) %  1000000007;
