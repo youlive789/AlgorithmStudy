@@ -28,7 +28,17 @@ int main() {
     vector<string> nameTable = split(nameString, ',');
     sort(nameTable.begin(), nameTable.end());
 
-    cout << (int)'Z' - 64 << endl;
+    int idx = 1, answer = 0;
+    for (string name : nameTable) {
+        int res = 0;
+        for (char c : name) {
+            res += ((int)c - 64);
+        }
+        answer += res * idx;
+        idx++;
+    }
+
+    cout << answer << endl;
 
     return 0;
 }
