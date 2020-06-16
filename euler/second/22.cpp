@@ -11,11 +11,11 @@ vector<string> split(string str, char delimiter) {
     vector<string> internal;
     stringstream ss(str);
     string temp;
- 
+
     while (getline(ss, temp, delimiter)) {
         internal.push_back(temp);
     }
- 
+
     return internal;
 }
 
@@ -27,7 +27,8 @@ int main() {
     
     vector<string> nameTable = split(nameString, ',');
     sort(nameTable.begin(), nameTable.end());
-    
+
+    cout << (int)'Z' - 64 << endl;
 
     return 0;
 }
