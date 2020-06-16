@@ -3,6 +3,7 @@
 #include <string>
 #include <sstream>
 #include <vector>
+#include <algorithm>
 
 using namespace std;
 
@@ -24,7 +25,9 @@ int main() {
     ifstream fp("names.txt");
     while (getline(fp, nameString)) {}
     
-    cout << nameString << endl;
+    vector<string> nameTable = split(nameString, ',');
+    sort(nameTable.begin(), nameTable.end());
+    
 
     return 0;
 }
