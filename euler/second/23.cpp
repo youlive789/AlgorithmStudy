@@ -23,11 +23,11 @@ int main() {
 
     // 1 - 28123 까지의 초과수를 구한다.
     for (int i = 1; i <= 28123; i++) {
-        if (isBignum(i)) bignumTable[i] = true;
+        if (isBignum(i)) {
+            bignumTable[i] = true;
+        }
     }
-
-    cout << "초과수 계산 완료 " << endl;
-
+    
     // 1 - 28123 까지 초과수 두개의 합으로 나타낼 수 없는 정수를 구한다.
     int answer = 0;
     for (int i = 1; i <= 28123; i++) {
@@ -36,8 +36,12 @@ int main() {
         }
         else {
             for (int idx = 1; idx < 28200; idx++) {
-                if (i - idx < 0) {
-                    
+                if (i - idx <= 0) {
+                    answer += i;
+                    break;
+                }
+                else {
+                    if (bignumTable[i - idx] && bignumTable[idx]) break;
                 }
             }
         }
