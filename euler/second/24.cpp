@@ -1,29 +1,37 @@
 #include <iostream>
 #include <string>
+#include <vector>
+#include <algorithm>
 
 using namespace std;
 
-bool numTable[10];
+int globalCnt = 0;
 
-void comb(int cnt, string p) {
-    if (cnt == 3) {
-        cout << p << endl;
+void comb(int cnt, vector<int> p) {
+    if (cnt == 10) {
+        globalCnt++;
+        if (globalCnt == 1000000) {
+            for (int num : p) {
+                cout << num;
+            }
+            cout << endl;
+        }
+        return;
     }
 
-    int index = (p != "") ? p[p.size()-1] - '0' : 0;
-
-    for (int idx = index; idx < 3; idx++) {
-        
-            numTable[idx] = true;
-            comb(cnt + 1, p.append(to_string(idx)));
-            numTable[idx] = false;
-                
+    for (int idx = 0; idx < 10; idx++) {
+        if (p.size() == 0 || find(p.begin(), p.end(), idx) == p.end()) {
+            p.push_back(idx);
+            comb(cnt + 1, p);
+            p.pop_back();
+        }
     }
 }
 
 int main() {
 
-    comb(0, "");
+    vector<int> p;
+    comb(0, p);
 
     return 0;
 }
