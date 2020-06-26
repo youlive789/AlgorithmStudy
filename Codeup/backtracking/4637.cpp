@@ -4,20 +4,43 @@
 using namespace std;
 
 class Country {
-private:
-    int countryCode;
-    int countryTable[6];
 public:
+    int countryCode;
+    int countryScoreTable[3];
+    int countryMatchTable[6];
+
     Country(const int& countryCode) : countryCode(countryCode) {
-        this->countryTable[countryCode] = -1;
+        this->countryMatchTable[countryCode] = -1;
     }
 
-    void win() {}
+    void win(Country & opponent) {
 
-    void draw() {}
+    }
 
-    void lose() {}
+    void draw(Country & opponent) {
+
+    }
+
+    void lose(Country & opponent) {
+
+    }
 };
+
+void dfs() {
+    for (int i = 0; i < 6; i++) {
+        // win
+        // dfs
+        // free
+
+        // draw
+        // dfs
+        // free
+
+        // lose
+        // dfs
+        // free
+    }
+}
 
 int main() {
 
