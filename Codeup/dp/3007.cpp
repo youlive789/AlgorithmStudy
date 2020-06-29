@@ -1,16 +1,12 @@
 #include <iostream>
+#include <cstdio>
 #include <vector>
 
 using namespace std;
 
 vector<int> numbers;
 
-int lastStartIdx, lastEndIdx;
-
 int main() {
-
-    for (int i = 0; i < 1000001; i++)
-        cache[i] = -9999999;
 
     int numberCnt, cases;
     cin >> numberCnt >> cases;
@@ -38,7 +34,7 @@ int main() {
             }
         }
 
-        cout << sum << endl;
+        printf("%d\n", sum);
     }
     
 
