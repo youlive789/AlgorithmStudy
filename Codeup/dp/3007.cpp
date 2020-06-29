@@ -20,21 +20,6 @@ int main() {
     while (cases--) {
         int startIdx, endIdx;
         cin >> startIdx >> endIdx;
-        startIdx--;
-        endIdx--;
-
-        int sum = 0;
-
-        if (startIdx - endIdx == 0) {
-            sum = numbers[startIdx];
-        }
-        else {
-            for (int i = startIdx; i <= endIdx; i++) {
-                sum += numbers[i];
-            }
-        }
-
-        printf("%d\n", sum);
     }
     
 
