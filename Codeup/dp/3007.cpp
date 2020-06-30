@@ -2,7 +2,7 @@
 #include <cstdio>
 #include <vector>
 #include <map>
-#include <string>
+#include <set>
 
 using namespace std;
 
@@ -29,10 +29,12 @@ int main() {
     int numberCnt, cases;
     cin >> numberCnt >> cases;
 
+    numbers.resize(numberCnt);
+
     for (int i = 0; i < numberCnt; i++) {
         int tmp;
         cin >> tmp;
-        numbers.push_back(tmp);
+        numbers[i] = tmp;
     }
 
     while (cases--) {
@@ -44,8 +46,6 @@ int main() {
 
         cout << sums(startIdx, endIdx) << endl;
     }
-
-    // cout << sums(0, 2) << endl;
 
     return 0;
 }
