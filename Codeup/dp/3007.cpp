@@ -24,9 +24,6 @@ int main() {
 
         startIdx--;
         endIdx--;
-
-        idx_start.push_back(startIdx);
-        idx_end.push_back(endIdx);
     }
     
     return 0;
