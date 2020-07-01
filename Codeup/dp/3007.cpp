@@ -6,7 +6,7 @@
 
 using namespace std;
 
-vector<int> numbers;
+int * numbers;
 map<string, int> cache;
 
 int sums(int start, int end) {
@@ -29,7 +29,7 @@ int main() {
     int numberCnt, cases;
     cin >> numberCnt >> cases;
 
-    numbers.resize(numberCnt);
+    numbers = new int[numberCnt];
 
     for (int i = 0; i < numberCnt; i++) {
         int tmp;
