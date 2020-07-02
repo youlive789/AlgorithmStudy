@@ -12,7 +12,7 @@ int findCandy(int y, int x, int N, int M) {
         return grid[y][x];
     }
 
-    int bottom, right;
+    int bottom = 0, right = 0;
 
     if (y < N-1) {
         if (bottomCache[y][x]) {
