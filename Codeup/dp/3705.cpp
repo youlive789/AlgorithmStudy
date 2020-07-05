@@ -5,7 +5,6 @@
 using namespace std;
 
 int numbers[100000];
-int cache[100000];
 
 int dfs(int nowIndex, int countNumber) {
     if (nowIndex == countNumber) {
@@ -19,6 +18,7 @@ int dfs(int nowIndex, int countNumber) {
     }
 
     return max(currentAnswer, dfs(nowIndex + 1, countNumber));
+    
 }
 
 int main() {
