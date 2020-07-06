@@ -1,40 +1,32 @@
-#include <cstdio>
-#include <limits>
-#include <algorithm>
-
-using namespace std;
-
-int numbers[100000];
-
-int dfs(int nowIndex, int countNumber) {
-    if (nowIndex == countNumber) {
-        return numbers[countNumber-1];
-    }
-
-    int currentSum = 0, currentAnswer = numeric_limits<int>::min();
-    for (int i = nowIndex; i < countNumber; i++) {
-        currentSum += numbers[i];
-        currentAnswer = max(currentAnswer, currentSum);
-    }
-
-    return max(currentAnswer, dfs(nowIndex + 1, countNumber));
-    
-}
-
-int main() {
-
-    int cases;
-    scanf("%d", &cases);
-
-    int sum = 0;
-    for (int i = 0; i < cases; i++) {
-        int tmp;
-        scanf("%d", &tmp);
+#include <stdio.h>
+ 
+int main(void){
+ 
+    int N;
+    int number[100010] = {};
+    int Dp[100010] = {};
+    int max;
+    scanf("%d", &N);
+ 
+    for (int i = 1; i <= N; i++)
+        scanf("%d", &number[i]);
+ 
+    for (int i = 1; i <= N; i++)
+    {
         
-        numbers[i] = tmp;
+        if (Dp[i - 1] + number[i] > number[i]){
+            Dp[i] = Dp[i - 1] + number[i];
+        }
+        else
+        {
+            Dp[i] = number[i];
+        }
+    
     }
-
-    printf("%d", dfs(0, cases));
-
-    return 0;
+    max = Dp[1];
+    for (int i = 2; i <= N; i++)
+            if (max < Dp[i])
+                max = Dp[i];
+ 
+    printf("%d\n", max);
 }
