@@ -5,20 +5,26 @@ using namespace std;
 int cache[100000003];
 
 int getClab(const int& number) {
-    int clab = 0;
-    int target = number;
-    while (target) {
-        if (cache[target]) {
-            clab += cache[target];
-            break;
-        }
-        else {
-            int tmp = target % 10;
-            if (tmp != 0 && tmp % 3 == 0) clab++;
-            target /= 10;
-        }
+    if (cache[number]) {
+        return cache[number];
     }
-    return cache[target] = clab;
+    else {
+        int clab = 0;
+        int target = number;
+
+        while (target) {
+            if (cache[target]) {
+                clab += cache[target];
+                break;
+            }
+            else {
+                int tmp = target % 10;
+                if (tmp != 0 && tmp % 3 == 0) clab++;
+                target /= 10;
+            }
+        }
+        return cache[number] = clab;
+    }
 }
 
 int conquer(const int& a, const int& b) {
@@ -42,8 +48,6 @@ int main() {
     int a, b;
     cin >> a >> b;
 
-    // cout << game(a, b) << endl;
     cout << conquer(a, b) << endl;
-
     return 0;
 }
