@@ -1,58 +1,34 @@
-target = "babdac"
+class Solution:
+    def longestPalindrome(self, s: str) -> str:
+        return self.answer(s, 0, len(s))
 
-s_length = len(target)
-length = len(target)
-start = 0
-end = length
+    def answer(self, target, start, end) ->str:
+        if len(target) <= 1:
+            return target
+        else:
+            if self.is_palindrome(target):
+                return target
+            left = self.answer(target[start:end-1], start, end - 1)
+            right = self.answer(target[start+1:end], start + 1, end)
 
-answer = ""
-max_length = 0
+            if len(left) > len(right):
+                return left
+            else:
+                return right
 
-while length > 1:
-    if end > s_length:
-        start = 0
-        end = length - 1
-        length -= 1
+    def is_palindrome(self, target):
+        mid = int(len(target) / 2)
+        if len(target) % 2 == 0:
+            if target[:mid] == target[mid:][::-1]:
+                return True
+        else:
+            if target[:mid] == target[mid+1:][::-1]:
+                return True
+        return False
 
-    s = target[start:end]
-    is_palindrome = False
-    mid = int(len(s) / 2)
-    if len(s) % 2 == 0:
-        if s[:mid] == s[mid:][::-1]:
-            is_palindrome = True
-    else:
-        if s[:mid] == s[mid+1:][::-1]:
-            is_palindrome = True
+if __name__ == "__main__":
+    s = Solution()
 
-    if is_palindrome :
-        if max_length < len(s):
-            max_length = len(s)
-            answer = s
-
-    start += 1
-    end += 1
-
-print(answer)
-
-# answer = ""
-# max_length = 0
-# for i in range(len(target)):
-#     for j in range(len(target) + 1):
-#         if i < j:
-#             s = target[i:j]
-#             is_palindrome = False
-#             mid = int(len(s) / 2)
-#             print(s, " ", mid)
-#             if len(s) % 2 == 0:
-#                 if s[:mid] == s[mid:][::-1]:
-#                     is_palindrome = True
-#             else:
-#                 if s[:mid] == s[mid+1:][::-1]:
-#                     is_palindrome = True
-
-#             if is_palindrome :
-#                 if max_length < len(s):
-#                     max_length = len(s)
-#                     answer = s
-
-# print(answer)
+    # print(s.longestPalindrome("babac"))
+    # print(s.longestPalindrome("ccb"))
+    print(s.longestPalindrome("civilwartestingwhetherthatnaptionoranynartionsoconceivedandsodedicatedcanlongendureWeareqmetonagreatbattlefiemldoftzhatwarWehavecometodedicpateaportionofthatfieldasafinalrestingplaceforthosewhoheregavetheirlivesthatthatnationmightliveItisaltogetherfangandproperthatweshoulddothisButinalargersensewecannotdedicatewecannotconsecratewecannothallowthisgroundThebravelmenlivinganddeadwhostruggledherehaveconsecrateditfaraboveourpoorponwertoaddordetractTgheworldadswfilllittlenotlenorlongrememberwhatwesayherebutitcanneverforgetwhattheydidhereItisforusthelivingrathertobededicatedheretotheulnfinishedworkwhichtheywhofoughtherehavethusfarsonoblyadvancedItisratherforustobeherededicatedtothegreattdafskremainingbeforeusthatfromthesehonoreddeadwetakeincreaseddevotiontothatcauseforwhichtheygavethelastpfullmeasureofdevotionthatweherehighlyresolvethatthesedeadshallnothavediedinvainthatthisnationunsderGodshallhaveanewbirthoffreedomandthatgovernmentofthepeoplebythepeopleforthepeopleshallnotperishfromtheearth"))
