@@ -15,33 +15,44 @@ int main() {
         factory[i] = tmp;
     }
 
-    int index = 0, answer = 0;
+    int index = 0, answer = 0, count = 0;
     while (index < factoryNumber) {
-        // index + 2 까지 숫자가 있다면
-        if (factory[index] && factory[index+1] && factory[index+2]) {
-            factory[index]--;
-            factory[index+1]--;
-            factory[index+2]--;
-            answer += 7;
-        }
+
+        if (factory[index+1] > factory[index+2]) {
+            // index + 1 까지 숫자가 있다면
+            count = min(factory[index], factory[index + 1] - factory[index + 2]);
+            factory[index] -= count;
+            factory[index+1] -= count;
+            answer += 5 * count;
             
-        // index + 1 까지 숫자가 있다면
-        if (factory[index] && factory[index+1]) {
-            factory[index]--;
-            factory[index+1]--;
-            answer += 5;
-        }
+
+            // index + 2 까지 숫자가 있다면
+            count = min(factory[index], min(factory[index + 1], factory[index + 2]));
+            factory[index] -= count;
+            factory[index+1] -= count;
+            factory[index+2] -= count;
+            answer += 7 * count;
             
-        // 현재 위치에만 숫자가 있다면
-        if (factory[index]) {
-            factory[index]--;
-            answer += 3;
+        }
+        else {
+            // index + 2 까지 숫자가 있다면
+            count = min(factory[index], min(factory[index + 1], factory[index + 2]));
+            factory[index] -= count;
+            factory[index+1] -= count;
+            factory[index+2] -= count;
+            answer += 7 * count;
+
+            // index + 1 까지 숫자가 있다면
+            count = min(factory[index], factory[index + 1]);
+            factory[index] -= count;
+            factory[index+1] -= count;
+            answer += 5 * count;
         }
 
-        // 현재 위치에 숫자가 없다면
-        if (!factory[index]) {
-            index++;
-        }
+        // 현재 위치에만 숫자가 있다면
+        count = 0;
+        answer += 3 * factory[index];
+        index++;
     }
 
     cout << answer << endl;
