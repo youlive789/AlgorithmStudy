@@ -1,6 +1,5 @@
 #include <iostream>
-#include <vector>
-#include <algorithm>
+#include <set>
 
 using namespace std;
 
@@ -9,11 +8,11 @@ int main() {
     int N, K;
     cin >> N >> K;
 
-    vector<int> container;
+    set<int> container;
     for (int idx = 0; idx < N; idx++) {
         int tmp;
         cin >> tmp;
-        container.push_back(tmp);
+        container.insert(tmp);
     }
 
     return 0;
