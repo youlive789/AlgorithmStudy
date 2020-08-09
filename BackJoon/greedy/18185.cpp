@@ -24,7 +24,6 @@ int main() {
             factory[index] -= count;
             factory[index+1] -= count;
             answer += 5 * count;
-            
 
             // index + 2 까지 숫자가 있다면
             count = min(factory[index], min(factory[index + 1], factory[index + 2]));
