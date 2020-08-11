@@ -27,7 +27,7 @@ void searchPipe(int row, int col, int endRow, int endCol) {
         searchPipe(row - 1, col +1, endRow, endCol);
     }
     // 오른쪽
-    else if (pipemap[row - 1][col + 1] == '.') {
+    else if (pipemap[row][col + 1] == '.') {
         pipemap[row][col + 1] = 'X';
         searchPipe(row, col +1, endRow, endCol);
     }
