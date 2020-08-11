@@ -23,18 +23,21 @@ void searchPipe(int row, int col, int endRow, int endCol) {
 
     // 오른쪽 위
     if (pipemap[row - 1][col + 1] == '.') {
-        pipemap[row - 1][col + 1] = 'X';
+        pipemap[row - 1][col + 1] = 'x';
         searchPipe(row - 1, col +1, endRow, endCol);
     }
     // 오른쪽
     else if (pipemap[row][col + 1] == '.') {
-        pipemap[row][col + 1] = 'X';
+        pipemap[row][col + 1] = 'x';
         searchPipe(row, col +1, endRow, endCol);
     }
     // 오른쪽 아래
     else if (pipemap[row + 1][col + 1] == '.') {
-        pipemap[row + 1][col + 1] = 'X';
+        pipemap[row + 1][col + 1] = 'x';
         searchPipe(row + 1, col +1, endRow, endCol);
+    }
+    else {
+        pipemap[row][col] = '.';
     }
 }
 
