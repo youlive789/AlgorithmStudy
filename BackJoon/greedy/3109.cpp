@@ -8,36 +8,55 @@ using namespace std;
 X . . .
 */
 
-int answer = 0;
-char pipemap[10000][500];
+int cache[10001][501];
+char pipemap[10001][501];
 
-void searchPipe(int row, int col, int endRow, int endCol) {
+int searchPipe(int row, int col, int endRow, int endCol, int lastDirection, bool fail) {
     
-    if (col >= endCol || row >= endRow) return;
-
-    // 정답
-    if (col == endCol - 1 && row < endRow ) {
-        answer++;
-        return;
-    }
-
-    // 오른쪽 위
-    if (pipemap[row - 1][col + 1] == '.') {
-        pipemap[row - 1][col + 1] = 'x';
-        searchPipe(row - 1, col +1, endRow, endCol);
-    }
-    // 오른쪽
-    else if (pipemap[row][col + 1] == '.') {
-        pipemap[row][col + 1] = 'x';
-        searchPipe(row, col +1, endRow, endCol);
-    }
-    // 오른쪽 아래
-    else if (pipemap[row + 1][col + 1] == '.') {
-        pipemap[row + 1][col + 1] = 'x';
-        searchPipe(row + 1, col +1, endRow, endCol);
+    if (cache[row][col]) {
+        return cache[row][col];
     }
     else {
-        pipemap[row][col] = '.';
+        if (col >= endCol || row >= endRow || col < 0 || row < 0) {
+            return 0;
+        }
+        if (col == endCol - 1 && row < endRow ) {
+            return 1;
+        }
+
+        int answer = 0;
+
+        bool canNotGoRightUp = fail && (lastDirection == 1);
+        bool canNotGoRight = fail && (lastDirection == 2);
+        bool canNotGoRightDown = fail && (lastDirection == 3);
+
+        // 오른쪽 위
+        if (pipemap[row - 1][col + 1] == '.' && !canNotGoRightUp) {
+            pipemap[row - 1][col + 1] = 'x';
+            answer += searchPipe(row - 1, col +1, endRow, endCol, 1, false);
+        }
+        // 오른쪽
+        else if (pipemap[row][col + 1] == '.' && !canNotGoRight) {
+            pipemap[row][col + 1] = 'x';
+            answer += searchPipe(row, col +1, endRow, endCol, 2, false);
+        }
+        // 오른쪽 아래
+        else if (pipemap[row + 1][col + 1] == '.' && !canNotGoRightDown) {
+            pipemap[row + 1][col + 1] = 'x';
+            answer += searchPipe(row + 1, col +1, endRow, endCol, 3, false);
+        }
+        else {
+            pipemap[row][col] = '.';
+            switch (lastDirection)
+            {
+                case 1: answer += searchPipe(row + 1, col -1, endRow, endCol, 1, true); break;
+                case 2: answer += searchPipe(row, col -1, endRow, endCol, 2, true); break;
+                case 3: answer += searchPipe(row - 1, col -1, endRow, endCol, 3, true); break;
+                default: break;
+            }
+        }
+
+        return cache[row][col] = answer;
     }
 }
 
@@ -54,17 +73,10 @@ int main() {
         }
     }
 
+    int answer = 0;
     for (int rowIndex = 0; rowIndex < row; rowIndex++) {
-        searchPipe(rowIndex, 0, row, col);
+        answer += searchPipe(rowIndex, 0, row, col, 0, false);
     }
-
-    // cout << endl;
-    // for (int rowIndex = 0; rowIndex < row; rowIndex++) {
-    //     for (int colIndex = 0; colIndex < col; colIndex++) {
-    //         cout << pipemap[rowIndex][colIndex] << " ";
-    //     }
-    //     cout << endl;
-    // }
 
     cout << answer << endl;
 
