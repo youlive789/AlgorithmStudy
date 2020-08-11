@@ -2,7 +2,7 @@
 
 using namespace std;
 
-int cache[10001][501];
+unsigned short cache[10001][501];
 char pipemap[10001][501];
 
 int searchPipe(int row, int col, int endRow, int endCol, int lastDirection, bool fail) {
@@ -18,7 +18,7 @@ int searchPipe(int row, int col, int endRow, int endCol, int lastDirection, bool
             return 1;
         }
 
-        int answer = 0;
+        unsigned short answer = 0;
 
         bool canNotGoRightUp = fail && (lastDirection == 1);
         bool canNotGoRight = fail && (lastDirection == 2);
@@ -67,7 +67,7 @@ int main() {
         }
     }
 
-    int answer = 0;
+    unsigned short answer = 0;
     for (int rowIndex = 0; rowIndex < row; rowIndex++) {
         answer += searchPipe(rowIndex, 0, row, col, 0, false);
     }
