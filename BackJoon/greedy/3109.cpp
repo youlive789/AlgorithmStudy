@@ -2,12 +2,6 @@
 
 using namespace std;
 
-/*
-. X X .
-. . . .
-X . . .
-*/
-
 int cache[10001][501];
 char pipemap[10001][501];
 
