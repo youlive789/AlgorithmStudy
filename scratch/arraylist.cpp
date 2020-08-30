@@ -11,6 +11,8 @@ int main() {
     for (int i = 0; i < 5; i++)
         list->add("test");
 
+    list->pop_back();
+
     for (int i = 0; i < list->size(); i++)
         cout << list->get(i) << endl;
 

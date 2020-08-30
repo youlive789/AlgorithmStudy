@@ -1,5 +1,4 @@
 #pragma once
-#include <iostream>
 
 template <typename T>
 class ArrayList {
@@ -29,6 +28,10 @@ public:
 
         this->container[this->currentSize] = element;
         this->currentSize++;
+    }
+
+    void pop_back() {
+        this->currentSize--;
     }
 
     T get(const int& index) {
