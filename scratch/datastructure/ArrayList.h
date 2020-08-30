@@ -13,7 +13,6 @@ public:
     }
 
     void add(const T& element) {
-        // 사이즈 늘리기
         if (this->currentSize >= this->containerSize) {
             this->containerSize *= 2;
             T* tmp = new T[this->containerSize];
