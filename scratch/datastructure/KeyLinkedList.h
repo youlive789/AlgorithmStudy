@@ -16,8 +16,9 @@ template <typename T, typename V>
 class KeyLinkedList {
 private:
     int size = 0;
-    Node<T, V>* head;
 public:
+    Node<T, V>* head;
+
     void add(T key, V value) {
         if (this->head) {
             Node<T, V>* cursor = this->head;
