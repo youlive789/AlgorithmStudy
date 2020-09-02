@@ -2,36 +2,15 @@
 
 using namespace std;
 
-int answer = 0;
-char pipemap[10001][501];
-bool visited[10001][501];
+int answer;
+char pipemap[10000][500];
 
-void searchPipe(int row, int col, int endRow, int endCol) {
-    
-    if (col >= endCol || row >= endRow) {
-        return;
-    }
 
-    if (col == endCol - 1 && row < endRow ) {
-        answer++;
-        return;
-    }
 
-    // 오른쪽 위
-    if (pipemap[row - 1][col + 1] == '.' && !visited[row-1][col+1]) {
-        pipemap[row-1][col+1] = 'x';
-        searchPipe(row - 1, col +1, endRow, endCol);
-    }
-    // 오른쪽
-    else if (pipemap[row][col + 1] == '.' && !visited[row][col+1]) {
-        pipemap[row][col+1] = 'x';
-        searchPipe(row, col +1, endRow, endCol);
-    }
-    // 오른쪽 아래
-    else if (pipemap[row + 1][col + 1] == '.' && !visited[row+1][col+1]) {
-        pipemap[row+1][col+1] = 'x';
-        searchPipe(row + 1, col +1, endRow, endCol);
-    }
+void searchPipe() {
+    // 오른쪽 상으로 이동할 수 있다면
+    // 오른쪽으로 이동할 수 있다면
+    // 오른쪽 하로 이동할 수 있다면
 }
 
 int main() {
@@ -48,7 +27,7 @@ int main() {
     }
 
     for (int rowIndex = 0; rowIndex < row; rowIndex++) {
-        searchPipe(rowIndex, 0, row, col);
+        searchPipe();
     }
 
     cout << answer << endl;
