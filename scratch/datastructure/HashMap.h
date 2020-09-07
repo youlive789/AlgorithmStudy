@@ -7,9 +7,7 @@ using namespace std;
 template <typename T, typename V>
 class HashMap {
 private:
-    KeyLinkedList<T, V>* first = new KeyLinkedList<T, V>();
-    KeyLinkedList<T, V>* second = new KeyLinkedList<T, V>();
-    KeyLinkedList<T, V>* third = new KeyLinkedList<T, V>();
+    KeyLinkedList<T, V>* container[3];
 
     int hash(T key) {
         int hashValue = -1;
@@ -24,50 +22,59 @@ private:
     }
 
 public:
-    HashMap() {}
+    HashMap() {
+        for (int i = 0; i < 3; i++) {
+            container[i] = new KeyLinkedList<T, V>();
+        }
+    }
 
     void put(T key, V value) {
         int hashcode = this->hash(key);
-        switch (hashcode)
-        {
-        case 0:
-            this->first->add(key, value);
-            break;
-        case 1:
-            this->second->add(key, value);
-            break;
-        case 2:
-            this->third->add(key, value);
-             break;
-        default:
-            throw "잘못된 키 값입니다.";
+
+        Node<T, V>* cursor = this->container[hashcode]->head;
+        while (cursor != nullptr) {
+            if (cursor->key == key) {
+                break;
+            }
+            cursor = cursor->next;
+        }
+
+        // 해쉬코드 컨테이너에 키가 있다면
+        if (cursor != nullptr) {
+            // 덮어쓰기
+            cursor->value = value;
+        }
+        // 없다면
+        else {
+            // 컨테이너에 노드추가
+            this->container[hashcode]->add(key, value);
         }
     }
 
     V get(T key) {
         V value;
         int hashcode = this->hash(key);
-        switch (hashcode)
-        {
-        case 0:
-            value = this->first->get(key);
-            break;
-        case 1:
-            value = this->second->get(key);
-            break;
-        case 2:
-            value = this->third->get(key);
-            break;
-        default:
-            throw "잘못된 키 값입니다.";
+
+        Node<T, V>* cursor = this->container[hashcode]->head;
+        while (cursor != nullptr) {
+            if (cursor->key == key) {
+                break;
+            }
+            cursor = cursor->next;
         }
 
-        return value;
+        // 해쉬코드 컨테이너에 키가 있다면
+        if (cursor != nullptr) {
+            // 값 리턴
+            return cursor->value;
+        }
+        // 없다면
+        else {
+            throw "키를 찾을 수 없습니다.";
+        }
     }
 
     ~HashMap() {
-        delete[] first;
-        delete[] second;
-        delete[] third;
+        delete[] this->container;
     }
 };
