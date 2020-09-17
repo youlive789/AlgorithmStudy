@@ -1,6 +1,6 @@
 import sys
 
-def check_chess_board(board, checker):
+def check_chess_board(board):
     pass
 
 if __name__ == "__main__":
