@@ -14,19 +14,14 @@ private:
     Node* head;
 
     void insert(Node* cursor, const int& value) {
-        if (cursor == nullptr) {
-            cursor = new Node(value);
-        }
-        else {
-            
-        }
+        // queue를 이용해서 inorder 순서로 삽입하기
     }
 
-    void inorderTraversal(Node* cursor) {
+    void preorderTraversal(Node* cursor) {
         if (cursor != nullptr) {
-            this->inorderTraversal(cursor->left);
             std::cout << cursor->value << std::endl;
-            this->inorderTraversal(cursor->right);
+            this->preorderTraversal(cursor->left);
+            this->preorderTraversal(cursor->right);
         }
     }
 
@@ -38,7 +33,7 @@ public:
     }
 
     void printTree() {
-        this->inorderTraversal(this->head);
+        this->preorderTraversal(this->head);
     }
 
     Node* findNode(const int& value) {}
