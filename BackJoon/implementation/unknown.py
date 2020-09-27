@@ -1,20 +1,4 @@
 import sys
-
-"""
-1 2 3 4 1    1 2 3 4 5 1
-4 5 6 5 2    5 6 7 8 6 2
-3 8 7 6 3    4 8 9 9 7 3
-2 5 6 5 4    3 7 9 9 8 4
-1 4 3 2 1    2 6 8 7 6 5
-             1 5 4 3 2 1
-
-1 4 3 2 1    1 5 4 3 2 1
-2 5 6 5 4    2 6 8 7 6 5
-3 6 7 6 3    3 7 9 9 8 4
-4 5 6 5 2    4 8 9 9 7 3
-1 2 3 4 1    5 6 7 8 6 2
-             1 2 3 4 5 1
-"""
 def cyclone(size, clockwise):    
     start_position = {
         True: [[0, 0], [0, size - 1], [size - 1, size - 1], [size - 1, 0]],
@@ -46,14 +30,12 @@ def make_grid(size, clockwise, start_position, direction):
         cnt_direction += 1
         check += 1
 
-        # 종료
         if idx_start == 3:
             if size % 2 == 1 and row == size // 2 and col == size // 2:
                 break
             elif size % 2 == 0 and row in even_center_position and col in even_center_position:
                 break
 
-        # 중앙 지점에 도달했다면
         if size % 2 != 0:
             if row == size // 2 and col == size // 2:
                 idx_start += 1
@@ -92,12 +74,3 @@ if __name__ == "__main__":
     print(cyclone(size, True))
     print()
     print(cyclone(size, False))
-
-"""
-[
-    [1, 2, 3, 1], 
-    [3, 0, 4, 2], 
-    [2, 4, 4, 3], 
-    [1, 3, 2, 1]
-]
-"""
