@@ -37,22 +37,22 @@ private:
             std::cout << "이미 있는 값입니다." << std::endl;
             return;
         }
-        else if (cursor->value > value) {
-            if (cursor->left) {
-                this->_insert(cursor->left, value);
+        else {
+            Node* parent;
+            while (cursor) {
+                parent = cursor;
+                if (parent->value > value) {
+                    cursor = cursor->left;
+                }
+                else {
+                    cursor = cursor->right;
+                }
+            }
+            if (parent->value > value) {
+                parent->left = new Node(value);
             }
             else {
-                cursor->left = new Node(value);
-                return;
-            }
-        }
-        else if (cursor->value < value) {
-            if (cursor->right) {
-                this->_insert(cursor->right, value);
-            }
-            else {
-                cursor->right = new Node(value);
-                return;
+                parent->right = new Node(value);
             }
         }
     }
@@ -84,8 +84,6 @@ public:
         }
         return this->_find(cursor, value);
     }
-
-    void remove(const int& value) {}
 
     void printTree() {
         this->_preorderTraversal(this->root);
