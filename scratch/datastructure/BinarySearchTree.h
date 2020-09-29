@@ -113,7 +113,7 @@ public:
         }
 
         // 자식노드가 하나도 없을 때
-        if (deleteTarget->right == nullptr and deleteTarget->left == nullptr) {
+        if (deleteTarget->right == nullptr && deleteTarget->left == nullptr) {
             if (parent->left == deleteTarget) {
                 parent->left = nullptr;
             }
@@ -125,7 +125,7 @@ public:
         }
 
         // 자식노드가 왼쪽 하나만 있을 때
-        if (deleteTarget->right == nullptr and deleteTarget->left != nullptr) {
+        if (deleteTarget->right == nullptr && deleteTarget->left != nullptr) {
             if (!parent) {
                 this->root = deleteTarget->left;
                 delete deleteTarget;
@@ -142,7 +142,7 @@ public:
             return;
         }
         // 자식노드가 오른쪽 하나만 있을 때
-        else if (deleteTarget->right != nullptr and deleteTarget->left == nullptr) {
+        else if (deleteTarget->right != nullptr && deleteTarget->left == nullptr) {
             if (!parent) {
                 this->root = deleteTarget->right;
                 delete deleteTarget;
