@@ -50,17 +50,25 @@ public:
         if (index < 0 || index > this->size) {
             throw std::out_of_range("범위초과");
         }
+        if (this->size == 0) return;
 
-        int idx = 0;
-        Node<T>* cursor = this->head;
-        while (idx != index - 1) {
-            cursor = cursor->next;
-            idx++;
+        if (index == 0) {
+            Node<T>* cursor = this->head;
+            this->head = this->head->next;
+            delete cursor;
         }
+        else {
+            int idx = 0;
+            Node<T>* cursor = this->head;
+            while (idx != index - 1) {
+                cursor = cursor->next;
+                idx++;
+            }
 
-        Node<T>* tmp = cursor->next;
-        cursor->next = cursor->next->next;
-        delete tmp;
+            Node<T>* tmp = cursor->next;
+            cursor->next = cursor->next->next;
+            delete tmp;
+        }
 
         this->size--;
     }
