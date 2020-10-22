@@ -14,12 +14,14 @@ if __name__ == "__main__":
             rounds[idx] = False
 
     while number >= 1:
+
         next_rounds = {}
         last, idx_next = 0, 0
+
         for idx in range(1, number, 2):
             if rounds[last] and rounds[idx]:
                 print(num_rounds)
-                break
+                exit()
             elif rounds[last] or rounds[idx]:
                 next_rounds[idx_next] = True
             else:
