@@ -27,6 +27,12 @@ if __name__ == "__main__":
             last += 2
             idx_next += 1
 
+        if number % 2 == 1:
+            if rounds[number - 1]:
+                next_rounds[idx_next] = True
+            else:
+                next_rounds[idx_next] = False
+
         number = len(next_rounds)
         rounds = next_rounds
         num_rounds += 1
