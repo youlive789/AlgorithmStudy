@@ -1,9 +1,6 @@
 import sys
 from itertools import combinations
 
-def calc_ability(ability_table):
-    pass
-
 if __name__ == "__main__":
     player_count = int(sys.stdin.readline())
 
