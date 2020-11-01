@@ -1,22 +1,17 @@
 import sys
 from collections import deque
 
+sys.setrecursionlimit(10**6)
 connected = 0
 
-def bfs(start, graph, visited):
+def dfs(idx, graph, visited):
+    if visited[idx] :
+        return
 
-    global connected
-    connected += 1
+    visited[idx] = True
 
-    q = deque([start])
-
-    while q:
-        node = q.popleft()
-        visited[node] = True
-
-        for n in graph[node]:
-            if not visited[n]:
-                q.append(n)
+    for node in graph[idx]:
+        dfs(node, graph, visited)
 
 if __name__ == "__main__":
     node_count, edge_count = list(map(int, sys.stdin.readline().split(" ")))
@@ -30,6 +25,7 @@ if __name__ == "__main__":
 
     for n in range(1, node_count + 1):
         if not visited[n]:
-            bfs(n, graph, visited)
+            dfs(n, graph, visited)
+            connected += 1
 
     print(connected)
