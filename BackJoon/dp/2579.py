@@ -7,6 +7,13 @@ if __name__ == "__main__":
     for _ in range(cases):
         steps.append(int(sys.stdin.readline()))
 
+    if cases == 1:
+        print(steps[0])
+        exit()
+    elif cases == 2:
+        print(max(steps[0]+steps[1], steps[1]))
+        exit()
+
     dp = [0 for _ in range(len(steps))]
     dp[0] = steps[0]
     dp[1] = max(steps[0]+steps[1], steps[1])
