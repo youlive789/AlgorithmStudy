@@ -36,16 +36,17 @@ if __name__ == "__main__":
         for col in range(col_count):
             temp[row].append(A[row][col] ^ B[row][col])
 
+    print(temp)
+
     count = 0
     for row in range(row_count):
         for col in range(col_count):
             if flip_list(row, col, temp):
+                print(temp)
                 count += 1
 
     same = is_same(temp, row_count, col_count)
     if same:
-        print(count)
-    elif not same and count == 0:
         print(count)
     else:
         print(-1)
