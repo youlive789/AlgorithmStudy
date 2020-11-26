@@ -18,22 +18,22 @@ if __name__ == "__main__":
     dx = [0, 1, 0, -1]
     dy = [-1, 0, 1, 0]
 
-    clean_count, is_moved, terminate = 0, False, False
+    clean_count, is_moved, is_backward, terminate = 0, False, False, False
     while True:
-        grid[row_current][col_current] = -1
-        clean_count += 1
+        if not is_backward:
+            grid[row_current][col_current] = "-"
+            clean_count += 1
         is_moved = False
-        process(grid)
+        is_backward = False
 
         for _ in range(4):
-            direction_left_check = direction - 1
-            if direction_left_check < 0:
-                direction_left_check = 3
+            direction -= 1
+            if direction < 0:
+                direction = 3
 
-            row_left_check = row_current + dy[direction_left_check]
-            col_left_check = col_current + dx[direction_left_check]
+            row_left_check = row_current + dy[direction]
+            col_left_check = col_current + dx[direction]
             
-            direction = direction_left_check
             if 0 <= row_left_check < row and 0 <= col_left_check < col and grid[row_left_check][col_left_check] == 0:
                 row_current = row_left_check
                 col_current = col_left_check
@@ -41,17 +41,19 @@ if __name__ == "__main__":
                 break
         
         if not is_moved:
-            for _ in range(2):
-                backward = direction - 2
-                if backward < 0:
-                    backward += 4
+            backward = direction - 2
+            if backward < 0:
+                backward += 4
 
-                if 0 <= row_current + dy[backward] < row and 0 <= col_current + dx[backward] < col and grid[row_current + dy[backward]][col_current + dx[backward]] != 1:
-                    row_current += dy[backward]
-                    col_current += dx[backward]
-                else:
-                    terminate = True
-                    break
+            row_backward = row_current + dy[backward]
+            col_backword = col_current + dx[backward]
+
+            if 0 <= row_backward < row and 0 <= col_backword < col and grid[row_backward][col_backword] != 1:
+                row_current = row_backward
+                col_current = col_backword
+                is_backward = True
+            else:
+                terminate = True
 
         if terminate:
             break
