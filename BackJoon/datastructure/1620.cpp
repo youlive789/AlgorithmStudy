@@ -7,6 +7,9 @@ using namespace std;
 
 int main() {
 
+    ios::ios_base::sync_with_stdio(false);
+    cin.tie(NULL); 
+
     map<string, int> m;
     map<int, string> s;
 
@@ -23,7 +26,8 @@ int main() {
     for (int idx = 0; idx < caseCount; idx++) {
         string target;
         cin >> target;
-        if (all_of(target.begin(), target.end(), ::isdigit)) {
+
+        if (isdigit(target[0])) {
             cout << s[stoi(target)] << "\n";
         }
         else {
