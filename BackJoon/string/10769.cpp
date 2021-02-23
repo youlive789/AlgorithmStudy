@@ -1,34 +1,40 @@
 #include <iostream>
 #include <string>
-#include <iterator>
-#include <regex>
 
 using namespace std;
 
 int main() {
 
     string sentence;
-    cin >> sentence;
+    getline(cin, sentence);
 
-    regex happyFace(":-)");
-    auto happyFaceBegin = sregex_iterator(sentence.begin(), sentence.end(), happyFace);
-    auto happyFaceEnd = sregex_iterator();
-    auto happyFaceCount = distance(happyFaceBegin, happyFaceEnd);
-
-    regex sadFace(":-(");
-    auto sadFaceBegin = sregex_iterator(sentence.begin(), sentence.end(), sadFace);
-    auto sadFaceEnd = sregex_iterator();
-    auto sadFaceCount = distance(sadFaceBegin, sadFaceEnd);
-
-    if (happyFaceCount == 0 && sadFaceCount == 0) {
+    string answer;
+    int sentenceLength = sentence.length();
+    if (sentenceLength <= 2) {
         cout << "none" << endl;
         exit(0);
     }
 
-    if (happyFaceCount > sadFaceCount) {
+    int happyCount = 0, sadCount = 0;
+    for (int i = 0; i < sentenceLength - 2; i++) {
+        if (sentence.at(i) == ':' && sentence.at(i+1) == '-' && sentence.at(i+2) == ')') {
+            happyCount++;
+            continue;
+        }
+
+        if (sentence.at(i) == ':' && sentence.at(i+1) == '-' && sentence.at(i+2) == '(') {
+            sadCount++;
+            continue;
+        }
+    }
+   
+    if (happyCount == 0 && sadCount == 0) {
+        cout << "none" << endl;
+    }
+    else if (happyCount > sadCount) {
         cout << "happy" << endl;
     }
-    else if (happyFaceCount < sadFaceCount) {
+    else if (happyCount < sadCount) {
         cout << "sad" << endl;
     }
     else {
