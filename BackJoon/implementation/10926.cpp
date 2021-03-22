@@ -5,10 +5,9 @@ using namespace std;
 
 int main() {
 
-    string tmp;
-    cin >> tmp;
-
-    cout << 0 << '\n';
+    string target;
+    cin >> target;
+    cout << target << "??!" << endl;
 
     return 0;
 }
