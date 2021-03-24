@@ -5,15 +5,19 @@ using namespace std;
 
 bool visited[32001] = {false};
 
-void dfs(int start, vector<vector<int>> graph, vector<int> result) {
+void dfs(int start, vector<vector<int>> graph, vector<int>& result) {
+    if (visited[start]) {
+        return;
+    }
+
     visited[start] = true;
 
     for (int idx = 0; idx < graph[start].size(); ++idx) {
-        if (!visited[graph[start][idx]] && graph[graph[start][idx]].size() > 0) {
+        if (!visited[graph[start][idx]]) {
             dfs(graph[start][idx], graph, result);
-            result.push_back(graph[start][idx]);
         }
     }
+    result.push_back(start);
 }
 
 int main() {
@@ -34,15 +38,14 @@ int main() {
     }
 
     vector<int> result;
-    for (int index = 1; index <= nodeCount; ++index) {
+    for (int index = nodeCount; index >= 1; --index) {
         if (!visited[index] && graph[index].size() > 0) {
             dfs(index, graph, result);
-            result.push_back(index);
         }
     }
 
-    for (auto ele : result) {
-        cout << ele << " ";
+    for (int idx = result.size()-1; idx >= 0; --idx) {
+        cout << result[idx] << " ";
     }
     cout << endl;
 
