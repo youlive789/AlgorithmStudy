@@ -1,3 +1,4 @@
+#include <cstdio>
 #include <iostream>
 #include <set>
 #include <map>
@@ -15,7 +16,7 @@ int main() {
     int* cords = new int[count];
     for (int idx = 0; idx < count; ++idx) {
         int tmp;
-        cin >> tmp;
+        scanf("%d", &tmp);
         cords[idx] = tmp;
         cord_set.insert(tmp);
     }
