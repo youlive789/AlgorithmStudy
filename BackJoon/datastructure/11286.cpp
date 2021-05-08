@@ -27,10 +27,10 @@ int main() {
         }
         else {
             if (q.empty()) {
-                printf("0");
+                printf("0\n");
             }
             else {
-                printf("%lld", q.top().second);
+                printf("%lld\n", q.top().second);
                 q.pop();
             }
         }
