@@ -4,7 +4,7 @@
 
 using namespace std;
 
-string getSubString(int nowIndex, int distance, string target) {
+string getString(int nowIndex, int distance, string target) {
     string result = "";
     result += target[nowIndex];
     result += target[nowIndex+distance];
@@ -20,29 +20,18 @@ int main() {
 
         bool notSuprise = false;
 
-        /**
-         * distance와 인덱스 루프 순서를 바꿔야함!!!!
-         */
-
-        for (int idx = 0; idx < target.size()-1; ++idx) {
+        for (int distance = 1; distance <= target.size()-1; ++distance) {
 
             set<string> checker;
-            set<string>::iterator notFound = checker.end();
-
-            string nowTarget = target.substr(idx);
-
-            for (int distance = 1; distance <= nowTarget.size()-1;  ++distance) {
-                string sub = getSubString(0, distance, nowTarget);
-                cout << idx << ":" << distance << " " << sub << endl;
-                if (checker.find(sub) == notFound) {
+            for (int idx = 0; idx <= target.size()-1-distance; ++idx) {
+                string sub = getString(idx, distance, target);
+                if (checker.find(sub) == checker.end()) {
                     checker.insert(sub);
                 }
                 else {
                     notSuprise = true;
                 }
             }
-
-            if (notSuprise) break;
         }
 
         if (notSuprise) {
