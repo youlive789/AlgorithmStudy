@@ -25,10 +25,10 @@ int main() {
         }
 
         if (isPalindrome) {
-            printf("YES\n");
+            printf("Yes\n");
         }
         else {
-            printf("NO\n");
+            printf("No\n");
         }
     }
 
