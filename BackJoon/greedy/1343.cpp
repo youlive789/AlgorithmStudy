@@ -52,19 +52,23 @@ int main() {
         if (canCoverWithA(position, target)) {
             coverWithA(position, target);
             position += 4;
+            continue;
         }
         
         if (canCoverWithB(position, target)) {
             coverWithB(position, target);
             position += 2;
+            continue;
         }
+
+        position++;
     }
 
-    if (target.find('X') != string::npos) {
+    if (target.find('X') == string::npos) {
         cout << target << endl;
     }
     else {
-        
+        cout << -1 << endl;
     }
     
 
